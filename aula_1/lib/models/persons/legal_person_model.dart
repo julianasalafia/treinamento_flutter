@@ -7,9 +7,16 @@ class LegalPersonModel extends PersonModel {
     required this.cnpj,
     required super.id,
     required super.name,
+    required super.surname,
     required super.address,
     required super.phone,
     required super.createdAt,
     required super.contas,
   });
+
+  @override
+  String toPrint() {
+    String parent = super.toPrint();
+    return '$parent \nCNPJ: $cnpj';
+  }
 }

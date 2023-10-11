@@ -9,9 +9,16 @@ class PhysicalPersonModel extends PersonModel {
     required this.birthAt,
     required super.id,
     required super.name,
+    required super.surname,
     required super.address,
     required super.phone,
     required super.createdAt,
     required super.contas,
   });
+
+  @override
+  String toPrint() {
+    String parent = super.toPrint();
+    return '$parent \nCPF: $cpf';
+  }
 }
