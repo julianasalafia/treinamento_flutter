@@ -17,3 +17,16 @@ const String signUpPhysicalPerson =
 
 const String signUpLegalPerson =
     '\nDeseja cadastrar a pessoa jurídica? \n1) sim \n2) não \n:: ';
+const askEmail = 'Qual seu email? ';
+const askPassword = 'Defina uma senha: ';
+
+const askName = 'Qual seu nome? ';
+const askSurname = 'E sobrenome? ';
+const askBirthAt = 'Qual sua data de nascimento? ';
+const askAddress = 'Qual o endereço? ';
+const askPhoneNumber = 'Qual o telefone? ';
+const askCPF = 'Qual seu CPF? ';
+
+const askCompanyName = 'Qual o nome fantasia da empresa? ';
+const askCompanyDocName = 'Qual a razão social da empresa? ';
+const askCNPJ = 'Qual o CNPJ? ';

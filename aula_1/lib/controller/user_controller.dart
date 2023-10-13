@@ -11,8 +11,8 @@ import '../helper/readers/read_string.dart';
 class UserController {
   UserModel getUser() {
     print(messageSignUp);
-    final email = readString('Qual seu email? ');
-    final password = readNumberAsString('Qual sua senha? ');
+    final email = readString(askEmail);
+    final password = readNumberAsString(askPassword);
 
     final person = _getPerson();
 
@@ -46,12 +46,12 @@ class UserController {
     final personType = _getPersonType(type);
 
     if (personType == PersonType.physical) {
-      final name = readString('Qual seu nome? ');
-      final surname = readString('Qual seu sobrenome? ');
-      final birthAt = readString('Qual sua data de nascimento? ');
-      final address = readString('Qual seu endereço? ');
-      final phone = readNumberAsString('Qual seu telefone? ');
-      final cpf = readNumberAsString('Qual seu CPF? ');
+      final name = readString(askName);
+      final surname = readString(askSurname);
+      final birthAt = readString(askBirthAt);
+      final address = readString(askAddress);
+      final phone = readNumberAsString(askPhoneNumber);
+      final cpf = readNumberAsString(askCPF);
       final personModel = PhysicalPersonModel(
         surname: surname,
         birthAt: birthAt,
@@ -63,11 +63,11 @@ class UserController {
       );
       return personModel;
     } else {
-      final name = readString('Qual o nome fantasia? ');
-      final surname = readString('Qual a razão social da empresa? ');
-      final address = readString('Qual o endereço? ');
-      final phone = readNumberAsString('Qual o telefone? ');
-      final cnpj = readNumberAsString('Qual seu CNPJ? ');
+      final name = readString(askCompanyName);
+      final surname = readString(askCompanyDocName);
+      final address = readString(askAddress);
+      final phone = readNumberAsString(askPhoneNumber);
+      final cnpj = readNumberAsString(askCNPJ);
       final personModel = LegalPersonModel(
         surname: surname,
         address: address,
