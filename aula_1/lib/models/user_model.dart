@@ -4,12 +4,14 @@ class UserModel {
   final int id;
   final String email;
   final String password;
-  final PersonModel person;
+  final DateTime createdAt;
+  final List<PersonModel> persons;
 
   UserModel({
     required this.id,
     required this.email,
     required this.password,
-    required this.person,
+    required this.createdAt,
+    required this.persons,
   });
 }
