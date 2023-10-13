@@ -8,6 +8,7 @@ class LegalPersonModel extends PersonModel {
     required super.id,
     required super.name,
     required super.surname,
+    required super.email,
     required super.address,
     required super.phone,
     required super.createdAt,

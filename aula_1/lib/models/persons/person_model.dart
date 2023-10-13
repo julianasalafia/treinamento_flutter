@@ -4,6 +4,7 @@ abstract class PersonModel {
   final int id;
   final String name;
   final String surname;
+  final String email;
   final String address;
   final String phone;
   final DateTime createdAt;
@@ -13,6 +14,7 @@ abstract class PersonModel {
     required this.id,
     required this.name,
     required this.surname,
+    required this.email,
     required this.address,
     required this.phone,
     required this.createdAt,

@@ -19,6 +19,4 @@ abstract class AccountModel {
   });
 }
 
-// class CurrentAccountModel extends AccountModel {}
-
 enum AccountType { current, saving, salary, investment }
