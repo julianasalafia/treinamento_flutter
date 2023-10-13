@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:aula_1/helper/constants/constants.dart';
+
 String readString(String prompt) {
   String? value;
 
@@ -9,7 +11,7 @@ String readString(String prompt) {
     value = input!;
 
     if (!value.contains(RegExp(r'^[a-zA-Z\s]+$'))) {
-      print("Erro: Por favor, digite uma string válida.");
+      print(errorMessageString);
     }
   } while (!value.contains(RegExp(r'^[a-zA-Z\s]+$')));
 
@@ -25,7 +27,7 @@ String readNumberAsString(String prompt) {
     value = input!;
 
     if (!value.contains(RegExp(r'^\d+$'))) {
-      print("Erro: Por favor, digite um número válido.");
+      print(errorMessageIntAsString);
     }
   } while (!value.contains(RegExp(r'^\d+$')));
 

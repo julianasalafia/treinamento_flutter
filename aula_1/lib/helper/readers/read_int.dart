@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import '../constants/constants.dart';
+
 int readInt(String prompt, int maxValue) {
   int? value;
 
@@ -11,7 +13,7 @@ int readInt(String prompt, int maxValue) {
     if (value != null && value <= maxValue) {
       return value;
     } else {
-      print('Erro: Por favor, escolha um número válido.');
+      print(errorMessageInt);
     }
   }
 }
