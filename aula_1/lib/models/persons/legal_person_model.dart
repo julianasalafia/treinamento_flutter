@@ -5,14 +5,11 @@ class LegalPersonModel extends PersonModel {
 
   LegalPersonModel({
     required this.cnpj,
-    required super.id,
     required super.name,
     required super.surname,
-    required super.email,
     required super.address,
     required super.phone,
-    required super.createdAt,
-    required super.contas,
+    required super.accounts,
   });
 
   @override

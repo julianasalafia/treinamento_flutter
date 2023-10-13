@@ -1,0 +1,1 @@
+enum PersonType { physical, legal }
