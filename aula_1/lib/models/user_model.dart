@@ -1,4 +1,4 @@
-import 'package:aula_1/models/persons/person_model.dart';
+import 'package:aula_1/models/person/person_model.dart';
 
 class UserModel {
   final int id;

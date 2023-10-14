@@ -1,11 +1,11 @@
 import 'package:aula_1/models/card/card_model.dart';
+import 'package:aula_1/models/invoice/transaction.dart';
 
 abstract class AccountModel {
   final double balance;
   final String accountNumber;
   final String agencyNumber;
-  //TODO: definir o tipo da transação
-  final List transactionHistory;
+  final List<Transaction> transactionHistory;
   final CardModel card;
   final AccountType accountType;
 
