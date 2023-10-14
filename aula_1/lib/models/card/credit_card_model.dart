@@ -1,5 +1,5 @@
 import 'package:aula_1/models/card/card_model.dart';
-import 'package:aula_1/models/invoice_model.dart';
+import 'package:aula_1/models/invoice/invoice_model.dart';
 
 class CreditCardModel extends CardModel {
   final double limit;

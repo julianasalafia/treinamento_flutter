@@ -1,0 +1,1 @@
+enum CardFlag { masterCard, visa }

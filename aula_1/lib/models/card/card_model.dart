@@ -1,4 +1,5 @@
-import 'package:aula_1/models/persons/person_model.dart';
+import '../person/person_model.dart';
+import 'card_flag.dart';
 
 abstract class CardModel {
   final PersonModel person;
@@ -15,5 +16,3 @@ abstract class CardModel {
     required this.expirationDate,
   });
 }
-
-enum CardFlag { masterCard, visa }
