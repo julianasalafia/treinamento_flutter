@@ -30,3 +30,26 @@ const askCPF = 'Qual seu CPF? ';
 const askCompanyName = 'Qual o nome fantasia da empresa? ';
 const askCompanyDocName = 'Qual a razão social da empresa? ';
 const askCNPJ = 'Qual o CNPJ? ';
+
+const availableOptionsMenu =
+    'Conta criada com sucesso. Deseja realizar alguma operação? Digite o número correspondente: '
+    '\n1) Carteira '
+    '\n2) Espaço PIX'
+    '\n3) Gerar cartão virtual'
+    '\n4) Pagar boleto'
+    '\n5) 2ª via do cartão'
+    '\n6) Rastrear cartão'
+    '\n7) Ajuda'
+    '\n:: ';
+
+const serviceUnavailable = 'Serviço indisponível. Tente novamente mais tarde. ';
+
+const welcome = 'Seja bem-vindo(a)';
+
+const creditOrDebitMessage =
+    'Escolha o cartão: \n1) cartão de crédito \n2) cartão débito \n:: ';
+
+const newCard = 'Deseja cadastrar um novo cartão? \n1) sim \n2) não \n:: ';
+
+const physicalOrLegalPerson =
+    'Qual conta você quer acessar? \n1) Pessoa física \n2) Pessoa Jurídica \n:: ';
