@@ -6,7 +6,7 @@ import '../utils/console.dart';
 
 class UserController {
   static UserModel create({required PersonModel person}) {
-    Console.write('Insira os dados que serão utilizados para entrar');
+    Console.write('Insira os dados que serão utilizados para entrar:');
     Console.writeEmpty();
 
     final email = Console.writeAndRead('Digite seu email: ');

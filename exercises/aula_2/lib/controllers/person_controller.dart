@@ -21,6 +21,7 @@ class PersonController {
 
     switch (personType) {
       case PersonType.physical:
+        Console.writeEmpty();
         final name = Console.writeAndRead('Digite seu nome: ');
         final telephone = Console.writeAndRead('Digite seu telefone: ');
         final address = Console.writeAndRead('Digite seu endereço: ');
@@ -38,6 +39,7 @@ class PersonController {
           accounts: [],
         );
       case PersonType.legal:
+        Console.writeEmpty();
         final name = Console.writeAndRead('Digite o nome fantasia: ');
         final telephone = Console.writeAndRead('Digite seu telefone: ');
         final address = Console.writeAndRead('Digite seu endereço: ');

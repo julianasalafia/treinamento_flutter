@@ -5,5 +5,5 @@ Sua conta será para:
 
 1 - Pessoa Física
 2 - Pessoa Jurídica
-''';
+:: ''';
 }

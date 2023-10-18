@@ -2,7 +2,7 @@ import 'dart:io';
 
 class Console {
   static void write(String message) {
-    stdout.writeln(message);
+    stdout.write(message);
   }
 
   static void writeEmpty() {
@@ -10,7 +10,7 @@ class Console {
   }
 
   static String writeAndRead(String message) {
-   stdout.write(message);
+    stdout.write(message);
     return read();
   }
 
