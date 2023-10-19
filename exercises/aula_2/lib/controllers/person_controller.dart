@@ -55,7 +55,6 @@ class PersonController {
           accounts: [],
         );
     }
-
     return person;
   }
 }

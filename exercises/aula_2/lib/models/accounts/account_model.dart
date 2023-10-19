@@ -6,7 +6,7 @@ abstract class AccountModel {
   final String agencyNumber;
   // TODO(danifbn): Definir o tipo da transação
   final List transactionHistory;
-  final CardModel card;
+  final List<CardModel> card;
   final AccountType accountType;
 
   AccountModel({
