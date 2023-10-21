@@ -30,13 +30,15 @@ class SalaryAccountModel extends AccountModel {
           expirationDate: DateTime.now(),
         ),
         CreditCardModel(
-          invoice: InvoiceModel(
-            value: 12345.6,
-            opensAt: DateTime.now(),
-            closesAt: DateTime.now(),
-            transactionHistory: [],
-            status: InvoiceStatus.open,
-          ),
+          invoices: [
+            InvoiceModel(
+              value: 12345.6,
+              opensAt: DateTime.now(),
+              closesAt: DateTime.now(),
+              transactionHistory: [],
+              status: InvoiceStatus.open,
+            ),
+          ],
           limit: 123456789.0,
           spentValue: 123.0,
           expiringDay: DateTime.december,

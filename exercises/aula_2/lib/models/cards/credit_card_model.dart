@@ -6,11 +6,11 @@ class CreditCardModel extends CardModel {
   final double spentValue;
   final int expiringDay;
   final int turnDay;
-  final InvoiceModel invoice;
+  final List<InvoiceModel> invoices;
   double get availableLimit => limit - spentValue;
 
   CreditCardModel({
-    required this.invoice,
+    required this.invoices,
     required this.limit,
     required this.spentValue,
     required this.expiringDay,

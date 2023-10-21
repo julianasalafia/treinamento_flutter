@@ -12,6 +12,14 @@ Sua conta será para:
   
   1 - Conta Corrente
   2 - Conta Poupança
+  3 - Conta Investimento
+  ::  ''';
+
+  static const chooseAccountTypePhysicalWithSalary = '''
+  Qual conta você deseja ativar?
+  
+  1 - Conta Corrente
+  2 - Conta Poupança
   3 - Conta Salário
   4 - Conta Investimento
   ::  ''';
@@ -23,3 +31,6 @@ Sua conta será para:
   2 - Conta Poupança
   ::  ''';
 }
+
+// parse
+// implementar validação nos forms
