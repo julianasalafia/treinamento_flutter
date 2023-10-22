@@ -1,27 +1,22 @@
+import 'package:dart_project/controllers/account_controller.dart';
 import 'controllers/person_controller.dart';
 import 'controllers/user_controller.dart';
-import 'models/accounts/account_model.dart';
 import 'utils/console.dart';
 import 'utils/messages.dart';
 
-void main() {
+void dartProject() {
+  PersonController personController = PersonController();
+  UserController userController = UserController();
+  AccountController accountController = AccountController();
+
   Console.clearTerminal();
 
   Console.write(Messages.welcome);
   Console.writeEmpty();
 
-  // Pessoa
-  final person = PersonController.create();
+  final person = personController.create();
   Console.writeEmpty();
-  final user = UserController.create(person: person);
 
-  final accountTypeCode = Console.readInt();
-  final accountType = AccountType.fromCode(accountTypeCode);
-
-  switch (accountType) {
-    case AccountType.current:
-    case AccountType.saving:
-    case AccountType.salary:
-    case AccountType.investment:
-  }
+  final user = userController.create(person: person);
+  final account = accountController.create(person: person, turnDay: 20);
 }
