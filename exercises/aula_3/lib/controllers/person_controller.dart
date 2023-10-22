@@ -1,5 +1,4 @@
 import '../helpers/datetime_extension.dart';
-import '../helpers/helpers.dart';
 import '../helpers/person_type.dart';
 import '../models/persons/legal_person_model.dart';
 import '../models/persons/person_model.dart';
@@ -9,7 +8,7 @@ import '../utils/messages.dart';
 import '../validators/validate_name.dart';
 
 class PersonController {
-  static PersonModel create() {
+  PersonModel create() {
     Console.write(Messages.choosePersonType);
 
     final personTypeSelectedCode = Console.readInt();
@@ -17,15 +16,10 @@ class PersonController {
 
     late final PersonModel person;
 
-    final id = Helpers.generateID();
-    final createdAt = DateTime.now();
-
     switch (personType) {
       case PersonType.physical:
         final name = Console.writeAndReadWithValidator(
-          'Digite seu nome completo: ',
-          validateName,
-        );
+            'Digite seu nome completo: ', validateName);
         final telephone = Console.writeAndRead('Digite seu telefone: ');
         final address = Console.writeAndRead('Digite seu endereço: ');
         final cpf = Console.writeAndRead('Digite seu cpf: ');
@@ -34,11 +28,9 @@ class PersonController {
         person = PhysicalPersonModel(
           cpf: cpf,
           birthAt: parseDate(birthAt),
-          id: id,
           name: name,
           address: address,
           telephone: telephone,
-          createdAt: createdAt,
           accounts: [],
         );
       case PersonType.legal:
@@ -49,11 +41,9 @@ class PersonController {
 
         person = LegalPersonModel(
           cnpj: cnpj,
-          id: id,
           name: name,
           address: address,
           telephone: telephone,
-          createdAt: createdAt,
           accounts: [],
         );
     }
@@ -61,9 +51,3 @@ class PersonController {
     return person;
   }
 }
-
-
-
-
-
-
