@@ -1,7 +1,7 @@
 import 'dart:math';
 
 class Helpers {
-  static int generateID() {
-    return Random().nextInt(99999999);
+  static String generateID() {
+    return Random().nextInt(99999999).toString();
   }
 }
