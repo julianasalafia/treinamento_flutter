@@ -2,7 +2,6 @@ class InvoiceModel {
   final double value;
   final DateTime opensAt;
   final DateTime closesAt;
-  // TODO(danifbn): Fazer um Model
   final List transactionHistory;
   final InvoiceStatus status;
 
@@ -16,6 +15,3 @@ class InvoiceModel {
 }
 
 enum InvoiceStatus { open, paid, overdue }
-
-// lembrar de lançar no back4app <3
-// you can do it

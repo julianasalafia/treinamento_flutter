@@ -4,7 +4,6 @@ abstract class AccountModel {
   final double balance;
   final String accountNumber;
   final String agencyNumber;
-  // TODO(danifbn): Definir o tipo da transação
   final List transactionHistory;
   final CardModel card;
   final AccountType accountType;
@@ -17,18 +16,31 @@ abstract class AccountModel {
     required this.card,
     required this.accountType,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'balance': balance,
+      'accountNumber': accountNumber,
+      'agencyNumber': agencyNumber,
+      'transactionHistory': [],
+      'card': card.toJson(),
+      'accountType': accountType.label,
+    };
+  }
 }
 
 enum AccountType {
-  current(1),
-  saving(2),
-  salary(3),
-  investment(4);
+  current(code: 1, label: 'Corrente Corrente'),
+  saving(code: 2, label: 'Conta Poupança'),
+  salary(code: 3, label: 'Conta Salário'),
+  investment(code: 4, label: 'Conta Investimento');
 
-  const AccountType(this.code);
+  const AccountType({required this.label, required this.code});
   final int code;
 
   static AccountType fromCode(int code) {
     return AccountType.values.firstWhere((e) => e.code == code);
   }
+
+  final String label;
 }

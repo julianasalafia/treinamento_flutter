@@ -8,16 +8,26 @@ class PhysicalPersonModel extends PersonModel {
   PhysicalPersonModel({
     required this.cpf,
     required this.birthAt,
-    required super.id,
     required super.name,
     required super.address,
     required super.telephone,
-    required super.createdAt,
     required super.accounts,
   });
 
   @override
   String toString() {
-    return 'PersonModel(id: $id, name: $name, address: $address, telephone: $telephone, createdAt: $createdAt, accounts: $accounts, cpf: $cpf, birthAt: $birthAt)';
+    return 'PersonModel(name: $name, address: $address, telephone: $telephone, accounts: $accounts, cpf: $cpf, birthAt: $birthAt)';
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'address': address,
+      'telephone': telephone,
+      'accounts': accounts.map((account) => account.toJson()).toList(),
+      'cpf': cpf,
+      // 'birthAt': birthAt,
+    };
   }
 }
