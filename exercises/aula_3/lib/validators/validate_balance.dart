@@ -1,6 +1,12 @@
+import 'package:dart_project/utils/messages.dart';
+
 String? validateBalance(String value) {
-  // Converter pra double
-  return null;
+  try {
+    double.parse(value);
+    return null;
+  } catch (e) {
+    return Messages.invalidBalance;
+  }
 }
 
 String? validateBalanceGenerics(double value) {
