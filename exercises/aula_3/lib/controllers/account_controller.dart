@@ -8,10 +8,13 @@ import 'package:dart_project/models/accounts/saving_account_model.dart';
 import 'package:dart_project/models/cards/credit_card_model.dart';
 import 'package:dart_project/models/cards/debit_card_model.dart';
 import 'package:dart_project/models/persons/person_model.dart';
+import 'package:dart_project/models/persons/physical_person_model.dart';
 
 import '../models/cards/card_model.dart';
 import '../utils/console.dart';
 import '../utils/messages.dart';
+
+const maxAge = 25;
 
 class AccountController {
   AccountModel create({
@@ -25,7 +28,21 @@ class AccountController {
     final chosenTypeCard =
         TypeCard.values.firstWhere((element) => element.id == typeCard);
 
-    Console.write(Messages.chooseAccountTypePhysicalWithSalary);
+    if (person is PhysicalPersonModel) {
+      final age = DateTime.now().year - person.birthAt.year;
+
+      if (age > maxAge) {
+        Console.writeEmpty();
+        Console.writeAndRead(Messages.chooseAccountTypePhysicalWithSalary);
+      } else if (age < maxAge) {
+        Console.writeEmpty();
+        Console.write(Messages.chooseAccountTypePhysical);
+      }
+    } else {
+      Console.writeEmpty();
+      Console.write(Messages.chooseAccountTypeLegal);
+    }
+
     final accountTypeCode = Console.readInt();
     final accountType = AccountType.fromCode(accountTypeCode);
 
