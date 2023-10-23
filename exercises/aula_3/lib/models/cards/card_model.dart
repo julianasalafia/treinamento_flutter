@@ -1,6 +1,9 @@
 import 'dart:math';
 
+import '../../utils/labels.dart';
 import '../persons/person_model.dart';
+
+const maxSize = 4;
 
 abstract class CardModel {
   final PersonModel person;
@@ -28,13 +31,16 @@ abstract class CardModel {
   }
 
   static String generateCardNumber() {
-    final random = Random();
+    var random = Random();
+    List<String> cardNumber = [];
 
-    final cardNumber = List.generate(4, (index) {
-      final generatedNumber = random.nextInt(9999) + 1;
-      String paddedNumber = generatedNumber.toString().padLeft(16, '0');
-      return paddedNumber;
-    });
+    for (var i = 0; i < maxSize; ++i) {
+      String group = '';
+      for (var j = 0; j < maxSize; ++j) {
+        group += random.nextInt(10).toString();
+      }
+      cardNumber.add(group);
+    }
 
     return cardNumber.join(' ');
   }
@@ -48,8 +54,8 @@ abstract class CardModel {
 }
 
 enum CardFlag {
-  masterCard(label: 'Mastercard'),
-  visa(label: 'Visa');
+  masterCard(label: Labels.mastercard),
+  visa(label: Labels.visa);
 
   final String label;
   const CardFlag({required this.label});

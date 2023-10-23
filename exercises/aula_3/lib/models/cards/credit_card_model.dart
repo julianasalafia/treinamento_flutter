@@ -3,6 +3,8 @@ import 'package:dart_project/models/persons/person_model.dart';
 import '../invoice_model.dart';
 import 'card_model.dart';
 
+const initialLimitForAllUsers = 300.0;
+
 class CreditCardModel extends CardModel {
   final double limit;
   final double spentValue;
@@ -28,7 +30,7 @@ class CreditCardModel extends CardModel {
       {required int turnDay, required PersonModel person}) {
     return CreditCardModel(
       invoice: [],
-      limit: 300,
+      limit: initialLimitForAllUsers,
       spentValue: 0,
       expiringDay: turnDay + 10,
       turnDay: turnDay,
@@ -38,5 +40,10 @@ class CreditCardModel extends CardModel {
       flag: CardFlag.generateFlag(),
       expirationDate: DateTime.now().add(Duration(days: 1825)),
     );
+  }
+
+  @override
+  String toString() {
+    return 'Crédito';
   }
 }

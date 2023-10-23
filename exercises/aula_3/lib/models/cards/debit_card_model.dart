@@ -20,4 +20,9 @@ class DebitCardModel extends CardModel {
       expirationDate: DateTime.now().add(Duration(days: 1825)),
     );
   }
+
+  @override
+  String toString() {
+    return 'Débito';
+  }
 }
