@@ -1,26 +1,20 @@
 import 'dart:io';
 
+import 'messages.dart';
 import 'typedefs.dart';
 
 class Console {
   static void write(String message) {
-    stdout.writeln(message);
+    stdout.write(message);
   }
 
   static String writeAndReadWithValidator(
     String message,
     Validator validator,
   ) {
-    // do while - Sempre vai executar no minimo 1x
-    // while - Pode ser que nunca execute
-
     String? errorMessage;
     String value;
 
-    // Recebo o texto
-    // Valido
-    // True -> saiu
-    // False -> repito
     do {
       value = writeAndRead(message);
 
@@ -66,29 +60,23 @@ class Console {
     required ValidatorGenerics<T> validator,
     required T? Function(String) parser,
   }) {
-    // do while - Sempre vai executar no minimo 1x
-    // while - Pode ser que nunca execute
     write(message);
 
     String? errorMessage;
     String value;
 
-    // Recebo o texto
-    // Valido
-    // True -> saiu
-    // False -> repito
     do {
       value = read();
 
       final parsedValue = parser(value);
       if (parsedValue == null) {
-        write('Valor inválido');
+        write(Messages.invalidValue);
       }
 
       errorMessage = validator(parsedValue as T);
       if (errorMessage != null) {
         write(errorMessage);
-        write('Digite novamente');
+        write(Messages.tryAgain);
       }
     } while (errorMessage != null);
 

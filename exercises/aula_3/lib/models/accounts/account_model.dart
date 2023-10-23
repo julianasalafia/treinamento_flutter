@@ -1,3 +1,4 @@
+import 'package:dart_project/utils/labels.dart';
 import '../cards/card_model.dart';
 
 abstract class AccountModel {
@@ -30,10 +31,10 @@ abstract class AccountModel {
 }
 
 enum AccountType {
-  current(code: 1, label: 'Corrente Corrente'),
-  saving(code: 2, label: 'Conta Poupança'),
-  salary(code: 3, label: 'Conta Salário'),
-  investment(code: 4, label: 'Conta Investimento');
+  current(code: 1, label: Labels.currentAccount),
+  saving(code: 2, label: Labels.savingAccount),
+  investment(code: 3, label: Labels.investmentAccount),
+  salary(code: 4, label: Labels.salaryAccount);
 
   const AccountType({required this.label, required this.code});
   final int code;
