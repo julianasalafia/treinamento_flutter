@@ -16,15 +16,15 @@ import '../utils/messages.dart';
 
 const maxAge = 25;
 
-class AccountController {
+class AccountController with Console {
   AccountModel create({
     required PersonModel person,
     required int turnDay,
   }) {
     final random = Random();
 
-    Console.write(Messages.chooseTypeCard);
-    final typeCard = Console.readInt();
+    write(Messages.chooseTypeCard);
+    final typeCard = readInt();
     final chosenTypeCard =
         TypeCard.values.firstWhere((element) => element.id == typeCard);
 
@@ -32,18 +32,18 @@ class AccountController {
       final age = DateTime.now().year - person.birthAt.year;
 
       if (age > maxAge) {
-        Console.writeEmpty();
-        Console.writeAndRead(Messages.chooseAccountTypePhysicalWithSalary);
+        writeEmpty();
+        write(Messages.chooseAccountTypePhysicalWithSalary);
       } else if (age < maxAge) {
-        Console.writeEmpty();
-        Console.write(Messages.chooseAccountTypePhysical);
+        writeEmpty();
+        write(Messages.chooseAccountTypePhysical);
       }
     } else {
-      Console.writeEmpty();
-      Console.write(Messages.chooseAccountTypeLegal);
+      writeEmpty();
+      write(Messages.chooseAccountTypeLegal);
     }
 
-    final accountTypeCode = Console.readInt();
+    final accountTypeCode = readInt();
     final accountType = AccountType.fromCode(accountTypeCode);
 
     final double balance = double.parse(random.nextInt(100).toString());

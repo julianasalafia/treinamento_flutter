@@ -13,30 +13,29 @@ import '../utils/console.dart';
 import '../utils/messages.dart';
 import '../validators/validate_name.dart';
 
-class PersonController {
+class PersonController with Console {
   PersonModel create() {
-    Console.write(Messages.choosePersonType);
+    write(Messages.choosePersonType);
 
-    final personTypeSelectedCode = Console.readInt();
+    final personTypeSelectedCode = readInt();
     final personType = PersonType.fromCode(personTypeSelectedCode);
 
     late final PersonModel person;
 
     switch (personType) {
       case PersonType.physical:
-        final name = Console.writeAndReadWithValidator(
-            Messages.typeCompleteName, validateName);
+        final name =
+            writeAndReadWithValidator(Messages.typeCompleteName, validateName);
 
-        final telephone = Console.writeAndReadWithValidator(
+        final telephone = writeAndReadWithValidator(
             Messages.typePhoneNumber, validateTelephone);
 
-        final address = Console.writeAndReadWithValidator(
-            Messages.typeAddress, validateAddress);
+        final address =
+            writeAndReadWithValidator(Messages.typeAddress, validateAddress);
 
-        final cpf =
-            Console.writeAndReadWithValidator(Messages.typeCpf, validateCPF);
-        final birthAt = Console.writeAndReadWithValidator(
-            Messages.typeBirthAt, validateBirthAt);
+        final cpf = writeAndReadWithValidator(Messages.typeCpf, validateCPF);
+        final birthAt =
+            writeAndReadWithValidator(Messages.typeBirthAt, validateBirthAt);
 
         person = PhysicalPersonModel(
           cpf: cpf,
@@ -47,14 +46,13 @@ class PersonController {
           accounts: [],
         );
       case PersonType.legal:
-        final name = Console.writeAndReadWithValidator(
-            Messages.typeCompanyName, validateName);
-        final telephone = Console.writeAndReadWithValidator(
+        final name =
+            writeAndReadWithValidator(Messages.typeCompanyName, validateName);
+        final telephone = writeAndReadWithValidator(
             Messages.typePhoneNumber, validateTelephone);
-        final address = Console.writeAndReadWithValidator(
-            Messages.typeAddress, validateAddress);
-        final cnpj =
-            Console.writeAndReadWithValidator(Messages.typeCnpj, validateCNPJ);
+        final address =
+            writeAndReadWithValidator(Messages.typeAddress, validateAddress);
+        final cnpj = writeAndReadWithValidator(Messages.typeCnpj, validateCNPJ);
 
         person = LegalPersonModel(
           cnpj: cnpj,

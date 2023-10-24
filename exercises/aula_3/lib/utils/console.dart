@@ -3,12 +3,12 @@ import 'dart:io';
 import 'messages.dart';
 import 'typedefs.dart';
 
-class Console {
-  static void write(String message) {
+mixin class Console {
+  void write(String message) {
     stdout.write(message);
   }
 
-  static String writeAndReadWithValidator(
+  String writeAndReadWithValidator(
     String message,
     Validator validator,
   ) {
@@ -28,26 +28,26 @@ class Console {
     return value;
   }
 
-  static void writeEmpty() {
+  void writeEmpty() {
     stdout.writeln();
   }
 
-  static String writeAndRead(String message) {
+  String writeAndRead(String message) {
     stdout.write(message);
     return read();
   }
 
-  static String read() {
+  String read() {
     return stdin.readLineSync()!;
   }
 
-  static int readInt() {
+  int readInt() {
     final value = stdin.readLineSync()!;
 
     return int.parse(value);
   }
 
-  static void clearTerminal() {
+  void clearTerminal() {
     if (Platform.isWindows) {
       print(Process.runSync("cls", [], runInShell: true).stdout);
     } else {
@@ -55,7 +55,7 @@ class Console {
     }
   }
 
-  static String writeAndReadWithValidatorGenerics<T>(
+  String writeAndReadWithValidatorGenerics<T>(
     String message, {
     required ValidatorGenerics<T> validator,
     required T? Function(String) parser,

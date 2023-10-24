@@ -1,4 +1,4 @@
-import 'package:dart_project/dart_project.dart';
+import 'package:dart_project/app.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
 void main() async {
@@ -9,5 +9,6 @@ void main() async {
       autoSendSessionId: true,
       coreStore: CoreStoreMemoryImp());
 
-  dartProject();
+  App app = App();
+  app.run();
 }
