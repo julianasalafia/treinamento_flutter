@@ -23,10 +23,10 @@ String? validateBirthAt(String value) {
     return Messages.invalidFormatBirthAt;
   }
 
-  var match = regExp.firstMatch(value)!;
-  var day = int.parse(match.group(1)!);
-  var month = int.parse(match.group(2)!);
-  var year = int.parse(match.group(3)!);
+  final match = regExp.firstMatch(value)!;
+  final day = int.parse(match.group(1)!);
+  final month = int.parse(match.group(2)!);
+  final year = int.parse(match.group(3)!);
 
   if (day < 1 || day > 31) {
     return Messages.invalidDayBirthAt;
@@ -36,7 +36,7 @@ String? validateBirthAt(String value) {
     return Messages.invalidMonthBirthAt;
   }
 
-  var currentYear = DateTime.now().year;
+  final currentYear = DateTime.now().year;
 
   if (year < currentYear - 130 || year > currentYear) {
     return 'Ano inválido, deve ser entre ${currentYear - 130} e $currentYear.';

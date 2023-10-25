@@ -31,8 +31,8 @@ abstract class CardModel {
   }
 
   static String generateCardNumber() {
-    var random = Random();
-    List<String> cardNumber = [];
+    final random = Random();
+    final List<String> cardNumber = [];
 
     for (var i = 0; i < maxSize; ++i) {
       String group = '';
@@ -41,7 +41,6 @@ abstract class CardModel {
       }
       cardNumber.add(group);
     }
-
     return cardNumber.join(' ');
   }
 

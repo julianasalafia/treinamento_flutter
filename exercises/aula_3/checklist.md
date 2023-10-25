@@ -10,4 +10,3 @@
 [x] retornar cartão de crédito e débito
 [x] retornar opção de cadastro de conta para usuário físico e jurídico
 [x] imprimir as informações disponíveis após finalizar o cadastro
-

@@ -1,5 +1,5 @@
 import 'package:dart_project/validators/validate_address.dart';
-import 'package:dart_project/validators/validate_birthAt.dart';
+import 'package:dart_project/validators/validate_birth_at.dart';
 import 'package:dart_project/validators/validate_cnpj.dart';
 import 'package:dart_project/validators/validate_cpf.dart';
 import 'package:dart_project/validators/validate_telephone.dart';
