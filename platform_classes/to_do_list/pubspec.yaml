@@ -10,7 +10,8 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  flutter_native_splash: ^2.3.4
+  flutter_native_splash: 2.3.0
+  flutterando_analysis: ^0.0.2
 
 dev_dependencies:
   flutter_test:
@@ -25,4 +26,5 @@ flutter:
 flutter_native_splash:
   color: "#FFFFFF"
   image: "assets/splash/splash.jpg"
-
+  android_12:
+    image: "assets/splash/splash.jpg"
