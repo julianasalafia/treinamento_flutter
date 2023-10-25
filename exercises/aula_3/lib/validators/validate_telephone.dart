@@ -20,7 +20,7 @@ String? validateTelephone(String value) {
   }
 
   if (value.length != 11) {
-    return Messages.invalidPassword;
+    return Messages.invalidTelephone;
   }
 
   return null;

@@ -5,15 +5,14 @@ import '../utils/console.dart';
 import '../utils/messages.dart';
 import '../validators/validate_password.dart';
 
-class UserController {
+class UserController with Console {
   UserModel create({required PersonModel person}) {
-    Console.write(Messages.loginData);
-    Console.writeEmpty();
+    write(Messages.loginData);
+    writeEmpty();
 
-    final email =
-        Console.writeAndReadWithValidator(Messages.typeEmail, validateEmail);
-    final password = Console.writeAndReadWithValidator(
-        Messages.typePassword, validatePassword);
+    final email = writeAndReadWithValidator(Messages.typeEmail, validateEmail);
+    final password =
+        writeAndReadWithValidator(Messages.typePassword, validatePassword);
 
     final user = UserModel(
       email: email,

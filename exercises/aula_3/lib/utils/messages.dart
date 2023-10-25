@@ -97,6 +97,7 @@ Insira os dados que serão utilizados para entrar.
       'Valor inválido, deve estar no formato correto de email.';
 
   static const invalidName = 'Valor inválido, deve ser o nome completo';
+
   static const invalidPassword =
       'Senha inválida, deve conter letras e números, e pelo menos uma letra maiúscula.';
 
