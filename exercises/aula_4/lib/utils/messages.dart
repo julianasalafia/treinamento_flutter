@@ -74,6 +74,8 @@ Insira os dados que serão utilizados para entrar.
 ''';
 
   static const invalidValue = 'Valor inválido';
+  static const invalidAccount = 'Conta inválida';
+  static const invalidAgency = 'Agência inválida';
   static const tryAgain = 'Digite novamente';
   static const invalidAddress =
       'Valor inválido, preencha com "Rua/Avenida/etc" e o nome da rua. ';
@@ -105,4 +107,58 @@ Insira os dados que serão utilizados para entrar.
       'Valor inválido, o telefone deve conter exatamente 11 caracteres.';
 
   static const invalidOption = 'Escolha um número válido.';
+
+  static const signUpSuccess = '''
+=====================================================
+           CONTA CADASTRADA COM SUCESSO
+=====================================================
+      ''';
+
+  static const depositTitle = '''
+=====================================================
+                   DEPOSITAR
+=====================================================
+      ''';
+
+  static const depositSuccess = '''
+=====================================================
+           DEPÓSITO EFETUADO COM SUCESSO
+=====================================================
+      ''';
+
+  static const unauthorized = '''
+=====================================================
+                   NÃO AUTORIZADO
+=====================================================
+
+  Depósito não autorizado para esse tipo de conta.
+  
+      ''';
+
+  static const menuOptions = '''
+=====================================================
+                      M E N U
+=====================================================
+  
+    Seja bem vindo ao banco, escolha uma operação:
+    
+    [1] Meus dados
+    [2] Depositar
+    [3] Transferir
+    [4] Sacar
+    [5] Extrato
+    :: ''';
+
+  static const questionDeposit = 'Qual valor deseja depositar? ';
+  static const destinyAccount = 'Conta destino: ';
+  static const destinyAgency = 'Agência destino: ';
+  static const notEnoughBalance = '''
+  
+=====================================================
+                SALDO INSUFICIENTE
+=====================================================
+   Você não possui dinheiro o suficiente em sua 
+   conta para efetuar o depósito.
+   
+      ''';
 }

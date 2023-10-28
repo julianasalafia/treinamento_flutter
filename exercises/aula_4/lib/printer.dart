@@ -1,7 +1,14 @@
+import 'dart:io';
+
+import 'package:dart_project/models/accounts/current_account_model.dart';
+import 'package:dart_project/models/accounts/saving_account_model.dart';
 import 'package:dart_project/models/persons/person_model.dart';
 import 'package:dart_project/models/user_model.dart';
 import 'package:dart_project/utils/console.dart';
 import 'package:dart_project/utils/labels.dart';
+import 'package:dart_project/utils/messages.dart';
+import 'package:dart_project/validators/validate_account.dart';
+import 'package:dart_project/validators/validate_agency.dart';
 
 import 'models/accounts/account_model.dart';
 import 'models/cards/credit_card_model.dart';
@@ -173,5 +180,76 @@ abstract class Printer with Console {
   Histórico de transações: ${account.transactionHistory}
   Cartão: ${account.card.toString()}
 ''');
+  }
+
+  AccountModel deposit({required AccountModel account}) {
+    if (account is CurrentAccountModel || account is SavingAccountModel) {
+      Messages.depositTitle;
+      stdout.write(Messages.questionDeposit);
+      final valueDeposit = double.parse(stdin.readLineSync()!);
+
+      if (account.balance > valueDeposit) {
+        final destinyAccount =
+            writeAndReadWithValidator(Messages.destinyAccount, validateAccount);
+
+        final destinyAgency =
+            writeAndReadWithValidator(Messages.destinyAgency, validateAgency);
+
+        final balance = account.balance - valueDeposit;
+
+        if (account is CurrentAccountModel) {
+          account = account.copyWith(
+            balance: balance,
+          );
+        }
+
+        if (account is SavingAccountModel) {
+          account = account.copyWith(
+            balance: balance,
+          );
+        }
+
+        print(Messages.depositSuccess);
+        showDepositInfo(
+          account,
+          destinyAccount!,
+          destinyAgency!,
+          valueDeposit,
+        );
+      } else {
+        print(Messages.notEnoughBalance);
+      }
+    } else {
+      print(Messages.unauthorized);
+    }
+
+    return account;
+  }
+
+  void showDepositInfo(
+    AccountModel account,
+    String destinyAccount,
+    String destinyAgency,
+    double depositedValue,
+  ) {
+    print(
+      '''       
+    VALOR DEPOSITADO: $depositedValue  
+    
+=====================================================
+      
+    DADOS DESTINO
+    Conta: $destinyAccount
+    Agência: $destinyAgency
+    
+=====================================================
+
+    DADOS REMETENTE
+    Conta: ${account.accountNumber}
+    Agência: ${account.agencyNumber}    
+    
+=====================================================
+    ''',
+    );
   }
 }

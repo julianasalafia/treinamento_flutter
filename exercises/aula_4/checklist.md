@@ -10,3 +10,8 @@
 [x] retornar cartão de crédito e débito
 [x] retornar opção de cadastro de conta para usuário físico e jurídico
 [x] imprimir as informações disponíveis após finalizar o cadastro
+
+[x] printar os dados da transferência
+[x] permitir que o usuário faça o depósito somente se tiver dinheiro na carteira
+[x] atualizar o valor após o deposito na aba dos dados
+[x] validar dados de conta e agência para depósito
