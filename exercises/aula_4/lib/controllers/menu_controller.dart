@@ -32,7 +32,7 @@ class MenuController extends Printer {
         // feedback = 'transferência';
         break;
       case MenuOption.withdraw:
-        // feedback = 'sacar';
+        account = withdraw(account: account);
         break;
       case MenuOption.statement:
         // feedback = 'extrato';

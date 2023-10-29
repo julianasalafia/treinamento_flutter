@@ -15,3 +15,5 @@
 [x] permitir que o usuário faça o depósito somente se tiver dinheiro na carteira
 [x] atualizar o valor após o deposito na aba dos dados
 [x] validar dados de conta e agência para depósito
+
+[x] sacar dinheiro

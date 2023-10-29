@@ -126,12 +126,24 @@ Insira os dados que serão utilizados para entrar.
 =====================================================
       ''';
 
+  static const withdrawSuccess = '''
+=====================================================
+             SAQUE EFETUADO COM SUCESSO
+=====================================================
+      ''';
+
+  static const withdrawTitle = '''
+=====================================================
+                      SACAR
+=====================================================
+      ''';
+
   static const unauthorized = '''
 =====================================================
                    NÃO AUTORIZADO
 =====================================================
 
-  Depósito não autorizado para esse tipo de conta.
+  Ação não autorizada para esse tipo de conta.
   
       ''';
 
@@ -150,6 +162,7 @@ Insira os dados que serão utilizados para entrar.
     :: ''';
 
   static const questionDeposit = 'Qual valor deseja depositar? ';
+  static const questionWithdraw = 'Qual valor deseja sacar? ';
   static const destinyAccount = 'Conta destino: ';
   static const destinyAgency = 'Agência destino: ';
   static const notEnoughBalance = '''

@@ -10,6 +10,7 @@ class CurrentAccountModel extends AccountModel {
     required super.card,
   }) : super(accountType: AccountType.current);
 
+  @override
   CurrentAccountModel copyWith({
     double? balance,
     String? accountNumber,

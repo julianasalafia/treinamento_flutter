@@ -212,8 +212,8 @@ abstract class Printer with Console {
         print(Messages.depositSuccess);
         showDepositInfo(
           account,
-          destinyAccount!,
-          destinyAgency!,
+          destinyAccount,
+          destinyAgency,
           valueDeposit,
         );
       } else {
@@ -224,6 +224,44 @@ abstract class Printer with Console {
     }
 
     return account;
+  }
+
+  AccountModel withdraw({required AccountModel account}) {
+    Messages.withdrawTitle;
+    stdout.write(Messages.questionWithdraw);
+    final valueWithdraw = double.parse(stdin.readLineSync()!);
+
+    if (account.balance > valueWithdraw) {
+      final balance = account.balance - valueWithdraw;
+
+      account = account.copyWith(
+        balance: balance,
+      );
+
+      print(Messages.withdrawSuccess);
+      showWithdrawInfo(
+        account,
+        valueWithdraw,
+      );
+    } else {
+      print(Messages.notEnoughBalance);
+    }
+
+    return account;
+  }
+
+  void showWithdrawInfo(
+    AccountModel account,
+    double withdrawValue,
+  ) {
+    print(
+      '''       
+    VALOR SACADO: $withdrawValue 
+    SALDO ATUALIZADO: ${account.balance}     
+=====================================================
+
+    ''',
+    );
   }
 
   void showDepositInfo(

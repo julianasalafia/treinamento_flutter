@@ -1,7 +1,7 @@
 import 'package:dart_project/utils/labels.dart';
 import '../cards/card_model.dart';
 
-abstract class AccountModel {
+abstract class AccountModel<T> {
   final double balance;
   final String accountNumber;
   final String agencyNumber;
@@ -16,6 +16,15 @@ abstract class AccountModel {
     required this.transactionHistory,
     required this.card,
     required this.accountType,
+  });
+
+  T copyWith({
+    double? balance,
+    String? accountNumber,
+    String? agencyNumber,
+    List? transactionHistory,
+    CardModel? card,
+    AccountType? accountType,
   });
 
   Map<String, dynamic> toJson() {
