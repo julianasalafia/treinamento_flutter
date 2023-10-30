@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dart_project/models/accounts/account_model.dart';
 import 'package:dart_project/models/menu/menu_model.dart';
 import 'package:dart_project/models/persons/person_model.dart';
@@ -37,6 +39,8 @@ class MenuController extends Printer {
       case MenuOption.statement:
         // feedback = 'extrato';
         break;
+      case MenuOption.quit:
+        exit(0);
     }
     return account;
   }

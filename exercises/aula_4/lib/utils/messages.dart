@@ -165,6 +165,7 @@ Insira os dados que serão utilizados para entrar.
     [3] Transferir
     [4] Sacar
     [5] Extrato
+    [6] Sair
     :: ''';
 
   static const questionDeposit = 'Qual valor deseja depositar? ';

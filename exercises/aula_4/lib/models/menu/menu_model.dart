@@ -9,7 +9,8 @@ enum MenuOption {
   deposit(code: 2, label: 'Depósito'),
   transfer(code: 3, label: 'Transferência'),
   withdraw(code: 4, label: 'Saque'),
-  statement(code: 5, label: 'Extrato');
+  statement(code: 5, label: 'Extrato'),
+  quit(code: 6, label: 'Sair');
 
   const MenuOption({required this.label, required this.code});
   final int code;

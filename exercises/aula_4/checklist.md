@@ -21,3 +21,4 @@
 [x] fazer validator para os campos do PIX
 [x] se o usuário tiver PIX > fluxo X; senão Y
 [ ] extrato
+[x] fechar app

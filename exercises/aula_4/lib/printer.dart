@@ -34,14 +34,19 @@ abstract class Printer with Console {
   }
 
   void showAccountLabelInfo({required AccountModel account}) {
-    if (account.accountType.label == Labels.currentAccount) {
-      showCurrentAccountInfo(account: account);
-    } else if (account.accountType.label == Labels.savingAccount) {
-      showSavingAccountInfo(account: account);
-    } else if (account.accountType.label == Labels.salaryAccount) {
-      showSalaryAccountInfo(account: account);
-    } else if (account.accountType.label == Labels.investmentAccount) {
-      showInvestmentAccountInfo(account: account);
+    switch (account.accountType.label) {
+      case Labels.savingAccount:
+        showSavingAccountInfo(account: account);
+        break;
+      case Labels.salaryAccount:
+        showSalaryAccountInfo(account: account);
+        break;
+      case Labels.investmentAccount:
+        showInvestmentAccountInfo(account: account);
+        break;
+      default:
+        showCurrentAccountInfo(account: account);
+        break;
     }
   }
 
@@ -229,10 +234,7 @@ abstract class Printer with Console {
       account =
           account.withdraw(account: account, valueWithdraw: valueWithdraw);
       print(Messages.withdrawSuccess);
-      showWithdrawInfo(
-        account,
-        valueWithdraw,
-      );
+      showWithdrawInfo(account, valueWithdraw);
     } on ErrorModel catch (e, _) {
       print(e.message);
     }
@@ -266,20 +268,26 @@ abstract class Printer with Console {
         stdout.write(Messages.newPixTransfer);
         final userChoice = int.parse(stdin.readLineSync()!);
 
-        if (userChoice == 1) {
-          final pixEmail =
-              writeAndReadWithValidator(Messages.typeEmail, validateEmail);
-          userPixKey = pixEmail;
-        } else if (userChoice == 2) {
-          final pixPhone = writeAndReadWithValidator(
-              Messages.typePhoneNumber, validateTelephone);
-          userPixKey = pixPhone;
-        } else if (userChoice == 3) {
-          final pixRandomKey = generateRandomPixKey();
-          userPixKey = pixRandomKey;
-        } else {
-          print(Messages.invalidOption);
+        switch (userChoice) {
+          case 1:
+            final pixEmail =
+                writeAndReadWithValidator(Messages.typeEmail, validateEmail);
+            userPixKey = pixEmail;
+            break;
+          case 2:
+            final pixPhone = writeAndReadWithValidator(
+                Messages.typePhoneNumber, validateTelephone);
+            userPixKey = pixPhone;
+            break;
+          case 3:
+            final pixRandomKey = generateRandomPixKey();
+            userPixKey = pixRandomKey;
+            break;
+          default:
+            print(Messages.invalidOption);
+            break;
         }
+
         keysPix.add(userPixKey);
         account = account.copyWith(
           keysPix: keysPix,
