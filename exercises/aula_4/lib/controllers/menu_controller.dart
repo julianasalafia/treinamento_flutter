@@ -29,7 +29,7 @@ class MenuController extends Printer {
         account = deposit(account: account);
         break;
       case MenuOption.transfer:
-        // feedback = 'transferência';
+        account = transfer(account: account);
         break;
       case MenuOption.withdraw:
         account = withdraw(account: account);

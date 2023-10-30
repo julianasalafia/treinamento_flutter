@@ -12,7 +12,7 @@ import '../utils/messages.dart';
 ///   - Se for [null], está válido
 ///   - Se for uma [String], está inválido
 String? validateAccount(String value) {
-  RegExp regExp = RegExp(r'^\d{5}-\d$');
+  RegExp regExp = RegExp(r'^\d{4}-\d$');
 
   if (!regExp.hasMatch(value)) {
     return Messages.invalidAccount;

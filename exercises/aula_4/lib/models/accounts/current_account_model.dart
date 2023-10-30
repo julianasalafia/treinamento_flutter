@@ -7,6 +7,7 @@ class CurrentAccountModel extends AccountModel {
     required super.accountNumber,
     required super.agencyNumber,
     required super.transactionHistory,
+    super.keysPix,
     required super.card,
   }) : super(accountType: AccountType.current);
 
@@ -16,6 +17,7 @@ class CurrentAccountModel extends AccountModel {
     String? accountNumber,
     String? agencyNumber,
     List? transactionHistory,
+    List<String>? keysPix,
     CardModel? card,
     AccountType? accountType,
   }) {
@@ -23,6 +25,7 @@ class CurrentAccountModel extends AccountModel {
       balance: balance ?? this.balance,
       accountNumber: accountNumber ?? this.accountNumber,
       agencyNumber: agencyNumber ?? this.agencyNumber,
+      keysPix: keysPix ?? this.keysPix,
       transactionHistory: transactionHistory ?? this.transactionHistory,
       card: card ?? this.card,
     );

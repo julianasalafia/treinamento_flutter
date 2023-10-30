@@ -1,4 +1,6 @@
+import 'package:dart_project/models/error_model.dart';
 import 'package:dart_project/utils/labels.dart';
+import '../../utils/messages.dart';
 import '../cards/card_model.dart';
 
 abstract class AccountModel<T> {
@@ -8,6 +10,8 @@ abstract class AccountModel<T> {
   final List transactionHistory;
   final CardModel card;
   final AccountType accountType;
+  final List<String> keysPix;
+  bool get enabledDeposit => true;
 
   AccountModel({
     required this.balance,
@@ -16,6 +20,7 @@ abstract class AccountModel<T> {
     required this.transactionHistory,
     required this.card,
     required this.accountType,
+    this.keysPix = const [],
   });
 
   T copyWith({
@@ -23,6 +28,7 @@ abstract class AccountModel<T> {
     String? accountNumber,
     String? agencyNumber,
     List? transactionHistory,
+    List<String>? keysPix,
     CardModel? card,
     AccountType? accountType,
   });
@@ -32,10 +38,45 @@ abstract class AccountModel<T> {
       'balance': balance,
       'accountNumber': accountNumber,
       'agencyNumber': agencyNumber,
+      'keysPix': keysPix,
       'transactionHistory': [],
       'card': card.toJson(),
       'accountType': accountType.label,
     };
+  }
+
+  AccountModel withdraw(
+      {required AccountModel account, required double valueWithdraw}) {
+    if (account.balance > valueWithdraw) {
+      final balance = account.balance - valueWithdraw;
+
+      account = account.copyWith(
+        balance: balance,
+      );
+
+      return account;
+    } else {
+      throw ErrorModel(Messages.notEnoughBalance);
+    }
+  }
+
+  AccountModel deposit({
+    required AccountModel account,
+    required valueDeposit,
+    required String destinyAccount,
+    required String destinyAgency,
+  }) {
+    if (account.balance > valueDeposit) {
+      final balance = account.balance - valueDeposit;
+
+      account = account.copyWith(
+        balance: balance,
+      );
+
+      return account;
+    } else {
+      throw ErrorModel(Messages.notEnoughBalance);
+    }
   }
 }
 

@@ -138,6 +138,12 @@ Insira os dados que serão utilizados para entrar.
 =====================================================
       ''';
 
+  static const transferTitle = '''
+=====================================================
+                   TRANSFERÊNCIA
+=====================================================
+      ''';
+
   static const unauthorized = '''
 =====================================================
                    NÃO AUTORIZADO
@@ -163,6 +169,26 @@ Insira os dados que serão utilizados para entrar.
 
   static const questionDeposit = 'Qual valor deseja depositar? ';
   static const questionWithdraw = 'Qual valor deseja sacar? ';
+  static const questionTransfer =
+      'Deseja efetuar uma transferência via PIX? [Y/N]:: ';
+
+  static const newPixTransfer = '''
+Para continuar, vamos cadastrar uma chave PIX. 
+Escolha a opção desejada:
+  [1] Email
+  [2] Celular
+  [3] Aleatória
+  ::  ''';
+
+  static const userPixKey = 'Digite a chave escolhida: ';
+
+  static const chooseKeyPixTransfer = 'Qual chave PIX deseja utilizar? ';
+
+  static const pixReceiverTransfer = 'PIX de destino: ';
+  static const pixAmountTransfer = 'Qual valor deseja transferir? ';
+  static const pixRegisteredKeys =
+      'Você já possui uma chave pix cadastrada. Deseja utiliza-la? [Y/N]:: ';
+
   static const destinyAccount = 'Conta destino: ';
   static const destinyAgency = 'Agência destino: ';
   static const notEnoughBalance = '''
@@ -171,7 +197,7 @@ Insira os dados que serão utilizados para entrar.
                 SALDO INSUFICIENTE
 =====================================================
    Você não possui dinheiro o suficiente em sua 
-   conta para efetuar o depósito.
+   conta para efetuar a transação.
    
       ''';
 }

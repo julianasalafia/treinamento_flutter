@@ -1,7 +1,7 @@
 import 'dart:io';
+import 'dart:math';
 
-import 'package:dart_project/models/accounts/current_account_model.dart';
-import 'package:dart_project/models/accounts/saving_account_model.dart';
+import 'package:dart_project/models/error_model.dart';
 import 'package:dart_project/models/persons/person_model.dart';
 import 'package:dart_project/models/user_model.dart';
 import 'package:dart_project/utils/console.dart';
@@ -9,6 +9,8 @@ import 'package:dart_project/utils/labels.dart';
 import 'package:dart_project/utils/messages.dart';
 import 'package:dart_project/validators/validate_account.dart';
 import 'package:dart_project/validators/validate_agency.dart';
+import 'package:dart_project/validators/validate_email.dart';
+import 'package:dart_project/validators/validate_telephone.dart';
 
 import 'models/accounts/account_model.dart';
 import 'models/cards/credit_card_model.dart';
@@ -183,41 +185,33 @@ abstract class Printer with Console {
   }
 
   AccountModel deposit({required AccountModel account}) {
-    if (account is CurrentAccountModel || account is SavingAccountModel) {
+    if (account.enabledDeposit) {
       Messages.depositTitle;
       stdout.write(Messages.questionDeposit);
       final valueDeposit = double.parse(stdin.readLineSync()!);
 
-      if (account.balance > valueDeposit) {
+      try {
         final destinyAccount =
             writeAndReadWithValidator(Messages.destinyAccount, validateAccount);
 
         final destinyAgency =
             writeAndReadWithValidator(Messages.destinyAgency, validateAgency);
 
-        final balance = account.balance - valueDeposit;
+        account.deposit(
+          account: account,
+          valueDeposit: valueDeposit,
+          destinyAccount: destinyAccount,
+          destinyAgency: destinyAgency,
+        );
 
-        if (account is CurrentAccountModel) {
-          account = account.copyWith(
-            balance: balance,
-          );
-        }
-
-        if (account is SavingAccountModel) {
-          account = account.copyWith(
-            balance: balance,
-          );
-        }
-
-        print(Messages.depositSuccess);
         showDepositInfo(
           account,
           destinyAccount,
           destinyAgency,
           valueDeposit,
         );
-      } else {
-        print(Messages.notEnoughBalance);
+      } on ErrorModel catch (e, _) {
+        print(e.message);
       }
     } else {
       print(Messages.unauthorized);
@@ -231,20 +225,94 @@ abstract class Printer with Console {
     stdout.write(Messages.questionWithdraw);
     final valueWithdraw = double.parse(stdin.readLineSync()!);
 
-    if (account.balance > valueWithdraw) {
-      final balance = account.balance - valueWithdraw;
-
-      account = account.copyWith(
-        balance: balance,
-      );
-
+    try {
+      account =
+          account.withdraw(account: account, valueWithdraw: valueWithdraw);
       print(Messages.withdrawSuccess);
       showWithdrawInfo(
         account,
         valueWithdraw,
       );
-    } else {
-      print(Messages.notEnoughBalance);
+    } on ErrorModel catch (e, _) {
+      print(e.message);
+    }
+    return account;
+  }
+
+  AccountModel transfer({required AccountModel account}) {
+    List<String> keysPix = List.from(account.keysPix);
+    late String userPixKey;
+
+    print(Messages.transferTitle);
+
+    String answer;
+
+    stdout.write(Messages.questionTransfer);
+    answer = stdin.readLineSync()!.toUpperCase();
+
+    while (answer == 'Y') {
+      if (keysPix.isNotEmpty) {
+        for (var element in account.keysPix) {
+          print('Chave cadastrada: $element.');
+        }
+
+        stdout.write(Messages.pixRegisteredKeys);
+        answer = stdin.readLineSync()!.toUpperCase();
+
+        if (answer == 'Y') {
+          userPixKey = keysPix.first;
+        }
+      } else if (keysPix.isEmpty) {
+        stdout.write(Messages.newPixTransfer);
+        final userChoice = int.parse(stdin.readLineSync()!);
+
+        if (userChoice == 1) {
+          final pixEmail =
+              writeAndReadWithValidator(Messages.typeEmail, validateEmail);
+          userPixKey = pixEmail;
+        } else if (userChoice == 2) {
+          final pixPhone = writeAndReadWithValidator(
+              Messages.typePhoneNumber, validateTelephone);
+          userPixKey = pixPhone;
+        } else if (userChoice == 3) {
+          final pixRandomKey = generateRandomPixKey();
+          userPixKey = pixRandomKey;
+        } else {
+          print(Messages.invalidOption);
+        }
+        keysPix.add(userPixKey);
+        account = account.copyWith(
+          keysPix: keysPix,
+        );
+      }
+      stdout.write(Messages.pixReceiverTransfer);
+      final pixReceiver = stdin.readLineSync()!;
+
+      stdout.write(Messages.pixAmountTransfer);
+      final pixAmount = double.parse(stdin.readLineSync()!);
+
+      if (account.balance > pixAmount) {
+        final balance = account.balance - pixAmount;
+
+        account = account.copyWith(
+          balance: balance,
+        );
+
+        print('''
+=====================================================
+                PIX EFETUADO COM SUCESSO
+=====================================================
+  
+     Remetente: $userPixKey
+     Destinatário: $pixReceiver
+        
+     Saldo: ${account.balance}     
+      
+     ''');
+
+        stdout.write('Deseja realizar outra transferência? [Y/N]:: ');
+        answer = stdin.readLineSync()!.toUpperCase();
+      }
     }
 
     return account;
@@ -289,5 +357,14 @@ abstract class Printer with Console {
 =====================================================
     ''',
     );
+  }
+
+  String generateRandomPixKey() {
+    final random = Random();
+    const characters =
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    final pixKey = List<String>.generate(
+        30, (index) => characters[random.nextInt(characters.length)]).join();
+    return pixKey;
   }
 }
