@@ -37,7 +37,7 @@ class MenuController extends Printer {
         account = withdraw(account: account);
         break;
       case MenuOption.statement:
-        // feedback = 'extrato';
+        account = transaction(account: account);
         break;
       case MenuOption.quit:
         exit(0);

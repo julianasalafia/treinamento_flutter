@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:dart_project/models/accounts/transaction_model.dart';
 import 'package:dart_project/models/error_model.dart';
 import 'package:dart_project/models/persons/person_model.dart';
 import 'package:dart_project/models/user_model.dart';
@@ -142,7 +143,7 @@ abstract class Printer with Console {
   Saldo: ${account.balance}
   Conta: ${account.accountNumber}
   Agência: ${account.agencyNumber}
-  Histórico de transações: ${account.transactionHistory}
+  Histórico de transações: ${account.transactionHistory.length}
   Cartão: ${account.card.toString()}
 ''');
   }
@@ -156,7 +157,7 @@ abstract class Printer with Console {
   Saldo: ${account.balance}
   Conta: ${account.accountNumber}
   Agência: ${account.agencyNumber}
-  Histórico de transações: ${account.transactionHistory}
+  Histórico de transações: ${account.transactionHistory.length}
   Cartão: ${account.card.toString()}
 ''');
   }
@@ -170,7 +171,7 @@ abstract class Printer with Console {
   Saldo: ${account.balance}
   Conta: ${account.accountNumber}
   Agência: ${account.agencyNumber}
-  Histórico de transações: ${account.transactionHistory}
+  Histórico de transações: ${account.transactionHistory.length}
   Cartão: ${account.card.toString()}
 ''');
   }
@@ -184,42 +185,50 @@ abstract class Printer with Console {
   Saldo: ${account.balance}
   Conta: ${account.accountNumber}
   Agência: ${account.agencyNumber}
-  Histórico de transações: ${account.transactionHistory}
+  Histórico de transações: ${account.transactionHistory.length}
   Cartão: ${account.card.toString()}
 ''');
   }
 
   AccountModel deposit({required AccountModel account}) {
-    if (account.enabledDeposit) {
-      Messages.depositTitle;
-      stdout.write(Messages.questionDeposit);
-      final valueDeposit = double.parse(stdin.readLineSync()!);
-
-      try {
-        final destinyAccount =
-            writeAndReadWithValidator(Messages.destinyAccount, validateAccount);
-
-        final destinyAgency =
-            writeAndReadWithValidator(Messages.destinyAgency, validateAgency);
-
-        account.deposit(
-          account: account,
-          valueDeposit: valueDeposit,
-          destinyAccount: destinyAccount,
-          destinyAgency: destinyAgency,
-        );
-
-        showDepositInfo(
-          account,
-          destinyAccount,
-          destinyAgency,
-          valueDeposit,
-        );
-      } on ErrorModel catch (e, _) {
-        print(e.message);
-      }
-    } else {
+    if (!account.enabledDeposit) {
       print(Messages.unauthorized);
+      return account;
+    }
+    print(Messages.depositTitle);
+    stdout.write(Messages.questionDeposit);
+    final valueDeposit = double.parse(stdin.readLineSync()!);
+
+    try {
+      final destinyAccount =
+          writeAndReadWithValidator(Messages.destinyAccount, validateAccount);
+
+      final destinyAgency =
+          writeAndReadWithValidator(Messages.destinyAgency, validateAgency);
+
+      final newAccount = account.deposit(
+        valueDeposit: valueDeposit,
+        destinyAccount: destinyAccount,
+        destinyAgency: destinyAgency,
+      );
+
+      final transaction = TransactionModel(
+        transactionType: 'DEPÓSITO',
+        transactionValue: valueDeposit,
+        date: DateTime.now(),
+      );
+
+      newAccount.transactionHistory.add(transaction);
+
+      showDepositInfo(
+        newAccount,
+        destinyAccount,
+        destinyAgency,
+        valueDeposit,
+      );
+      return newAccount;
+    } on ErrorModel catch (e, _) {
+      print(e.message);
     }
 
     return account;
@@ -234,10 +243,30 @@ abstract class Printer with Console {
       account =
           account.withdraw(account: account, valueWithdraw: valueWithdraw);
       print(Messages.withdrawSuccess);
+
+      final transaction = TransactionModel(
+        transactionType: 'SAQUE',
+        transactionValue: valueWithdraw,
+        date: DateTime.now(),
+      );
+
+      account.transactionHistory.add(transaction);
+
       showWithdrawInfo(account, valueWithdraw);
     } on ErrorModel catch (e, _) {
       print(e.message);
     }
+    return account;
+  }
+
+  AccountModel transaction({required AccountModel account}) {
+    try {
+      account = account.transaction(account: account);
+      showTransactionList(account: account);
+    } on ErrorModel catch (e, _) {
+      print(e.message);
+    }
+
     return account;
   }
 
@@ -299,12 +328,20 @@ abstract class Printer with Console {
       stdout.write(Messages.pixAmountTransfer);
       final pixAmount = double.parse(stdin.readLineSync()!);
 
-      if (account.balance > pixAmount) {
+      if (account.balance >= pixAmount) {
         final balance = account.balance - pixAmount;
 
         account = account.copyWith(
           balance: balance,
         );
+
+        final transaction = TransactionModel(
+          transactionType: 'TRANSFERÊNCIA',
+          transactionValue: pixAmount,
+          date: DateTime.now(),
+        );
+
+        account.transactionHistory.add(transaction);
 
         print('''
 =====================================================
@@ -365,6 +402,25 @@ abstract class Printer with Console {
 =====================================================
     ''',
     );
+  }
+
+  void showTransactionList({required AccountModel account}) {
+    print('''
+=====================================================
+              HISTÓRICO DE TRANSAÇÕES
+=====================================================
+    ''');
+
+    for (final item in account.transactionHistory) {
+      print('''      
+         
+   Tipo  de transação: ${item.transactionType}        
+   Valor: ${item.transactionValue}
+   Data: ${item.date}
+   
+=====================================================
+    ''');
+    }
   }
 
   String generateRandomPixKey() {

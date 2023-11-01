@@ -192,6 +192,7 @@ Escolha a opção desejada:
 
   static const destinyAccount = 'Conta destino: ';
   static const destinyAgency = 'Agência destino: ';
+
   static const notEnoughBalance = '''
   
 =====================================================
@@ -201,4 +202,6 @@ Escolha a opção desejada:
    conta para efetuar a transação.
    
       ''';
+
+  static const transactionError = 'Nenhuma transação.';
 }

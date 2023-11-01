@@ -5,6 +5,7 @@ import 'package:dart_project/models/accounts/current_account_model.dart';
 import 'package:dart_project/models/accounts/investment_account_model.dart';
 import 'package:dart_project/models/accounts/salary_account_model.dart';
 import 'package:dart_project/models/accounts/saving_account_model.dart';
+import 'package:dart_project/models/accounts/transaction_model.dart';
 import 'package:dart_project/models/cards/credit_card_model.dart';
 import 'package:dart_project/models/cards/debit_card_model.dart';
 import 'package:dart_project/models/persons/person_model.dart';
@@ -50,7 +51,7 @@ class AccountController with Console {
 
     final String accountNumber = generateAccountNumber();
     final String agencyNumber = generateAgencyNumber();
-    final List transactionHistory = [];
+    final List<TransactionModel> transactionHistory = [];
     final CardModel card = chosenTypeCard == TypeCard.debit
         ? DebitCardModel.create(person: person)
         : CreditCardModel.create(turnDay: turnDay, person: person);
