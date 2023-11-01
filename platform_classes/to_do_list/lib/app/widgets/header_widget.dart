@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_list/app/themes/light/light_colors.dart';
 
 class HeaderWidget extends StatelessWidget {
-  const HeaderWidget({super.key});
+  final String title;
+  final String subtitle;
+  final VoidCallback onAddTap;
+
+  const HeaderWidget({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.onAddTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,20 +23,20 @@ class HeaderWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Today\'s task',
+              title,
               style: theme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 4),
             Text(
-              'Date',
+              subtitle,
               style: theme.textTheme.titleSmall,
             ),
           ],
         ),
         ElevatedButton.icon(
-          onPressed: () {},
+          onPressed: onAddTap,
           label: const Text('Nova tarefa'),
           icon: const Icon(Icons.add),
         ),
