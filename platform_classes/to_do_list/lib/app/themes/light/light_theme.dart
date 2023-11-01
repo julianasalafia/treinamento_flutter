@@ -4,9 +4,19 @@ import 'package:to_do_list/app/themes/light/light_colors.dart';
 
 class LightTheme {
   static final theme = ThemeData(
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      titleTextStyle: TextStyle(
+        color: Colors.black87,
+        fontSize: 20,
+      ),
+      iconTheme: IconThemeData(color: Colors.black87),
+    ),
     dividerColor: LightColors.gray,
     textTheme: const TextTheme(
       titleSmall: TextStyle(color: LightColors.gray),
+      bodyMedium: TextStyle(color: LightColors.gray),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -20,8 +30,10 @@ class LightTheme {
     ),
     extensions: [
       ColorExtension(
+        doneBackgroundColor: LightColors.darkBlue,
         focusedBadgeColor: LightColors.darkBlue,
         unfocusedBadgeColor: LightColors.lightGray,
+        doneBorderColor: LightColors.lightGray,
       ),
     ],
   );
