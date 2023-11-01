@@ -1,19 +1,20 @@
+import 'package:dart_project/models/accounts/transaction_model.dart';
 import 'package:dart_project/models/error_model.dart';
 import 'package:dart_project/utils/labels.dart';
 import '../../utils/messages.dart';
 import '../cards/card_model.dart';
 
-abstract class AccountModel<T> {
+abstract class AccountModel {
   final double balance;
   final String accountNumber;
   final String agencyNumber;
-  final List transactionHistory;
+  final List<TransactionModel> transactionHistory;
   final CardModel card;
   final AccountType accountType;
   final List<String> keysPix;
   bool get enabledDeposit => true;
 
-  AccountModel({
+  const AccountModel({
     required this.balance,
     required this.accountNumber,
     required this.agencyNumber,
@@ -23,11 +24,11 @@ abstract class AccountModel<T> {
     this.keysPix = const [],
   });
 
-  T copyWith({
+  AccountModel copyWith({
     double? balance,
     String? accountNumber,
     String? agencyNumber,
-    List? transactionHistory,
+    List<TransactionModel>? transactionHistory,
     List<String>? keysPix,
     CardModel? card,
     AccountType? accountType,
@@ -39,7 +40,7 @@ abstract class AccountModel<T> {
       'accountNumber': accountNumber,
       'agencyNumber': agencyNumber,
       'keysPix': keysPix,
-      'transactionHistory': [],
+      'transactionHistory': transactionHistory,
       'card': card.toJson(),
       'accountType': accountType.label,
     };
@@ -61,22 +62,33 @@ abstract class AccountModel<T> {
   }
 
   AccountModel deposit({
-    required AccountModel account,
     required valueDeposit,
     required String destinyAccount,
     required String destinyAgency,
   }) {
-    if (account.balance > valueDeposit) {
-      final balance = account.balance - valueDeposit;
+    if (balance > valueDeposit) {
+      final newBalance = balance - valueDeposit;
 
-      account = account.copyWith(
-        balance: balance,
+      final newAccount = copyWith(
+        balance: newBalance,
       );
 
-      return account;
+      return newAccount;
     } else {
       throw ErrorModel(Messages.notEnoughBalance);
     }
+  }
+
+  AccountModel transaction({required AccountModel account}) {
+    if (transactionHistory.isNotEmpty) {
+      account = account.copyWith(
+        transactionHistory: transactionHistory,
+      );
+    } else {
+      throw ErrorModel(Messages.transactionError);
+    }
+
+    return account;
   }
 }
 

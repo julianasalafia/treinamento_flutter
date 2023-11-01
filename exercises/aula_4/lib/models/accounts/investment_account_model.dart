@@ -1,8 +1,10 @@
+import 'package:dart_project/models/accounts/transaction_model.dart';
+
 import '../cards/card_model.dart';
 import 'account_model.dart';
 
-class InvestmentAccountModel extends AccountModel<InvestmentAccountModel> {
-  InvestmentAccountModel({
+class InvestmentAccountModel extends AccountModel {
+  const InvestmentAccountModel({
     required super.balance,
     required super.accountNumber,
     required super.agencyNumber,
@@ -19,7 +21,7 @@ class InvestmentAccountModel extends AccountModel<InvestmentAccountModel> {
     double? balance,
     String? accountNumber,
     String? agencyNumber,
-    List? transactionHistory,
+    List<TransactionModel>? transactionHistory,
     List<String>? keysPix,
     CardModel? card,
     AccountType? accountType,

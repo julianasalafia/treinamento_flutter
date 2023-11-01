@@ -1,8 +1,10 @@
+import 'package:dart_project/models/accounts/transaction_model.dart';
+
 import '../cards/card_model.dart';
 import 'account_model.dart';
 
 class CurrentAccountModel extends AccountModel {
-  CurrentAccountModel({
+  const CurrentAccountModel({
     required super.balance,
     required super.accountNumber,
     required super.agencyNumber,
@@ -16,7 +18,7 @@ class CurrentAccountModel extends AccountModel {
     double? balance,
     String? accountNumber,
     String? agencyNumber,
-    List? transactionHistory,
+    List<TransactionModel>? transactionHistory,
     List<String>? keysPix,
     CardModel? card,
     AccountType? accountType,
