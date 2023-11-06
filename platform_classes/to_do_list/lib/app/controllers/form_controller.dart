@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:to_do_list/app/core/shared/utils/app_formatters.dart';
 
 class FormController {
   FormController() {
@@ -25,14 +26,17 @@ class FormController {
   }
 
   void changeDate(DateTime newDate) {
-    dateController.text = newDate.toString();
+    final value = AppFormatters.completeDay(newDate);
+    dateController.text = value;
   }
 
   void changeInitHour(TimeOfDay newTime) {
-    initHourController.text = newTime.toString();
+    final value = AppFormatters.formatHourFromTime(newTime);
+    initHourController.text = value;
   }
 
   void changeEndHour(TimeOfDay newTime) {
-    endHourController.text = newTime.toString();
+    final value = AppFormatters.formatHourFromTime(newTime);
+    endHourController.text = value;
   }
 }

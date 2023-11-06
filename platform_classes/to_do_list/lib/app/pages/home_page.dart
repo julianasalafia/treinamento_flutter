@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list/app/components/filter_list_component.dart';
 import 'package:to_do_list/app/components/task_list_component.dart';
+import 'package:to_do_list/app/core/shared/utils/app_formatters.dart';
 import 'package:to_do_list/app/pages/add_task_page.dart';
 import 'package:to_do_list/app/widgets/header_widget.dart';
 import 'package:to_do_list/app/widgets/home_app_bar_widget.dart';
@@ -21,6 +22,19 @@ class _HomePageState extends State<HomePage> {
         },
       ),
     );
+  }
+
+  String get headerTitle {
+    final dayMessage = AppFormatters.dayMessage(DateTime.now());
+
+    if (dayMessage != null) {
+      return 'Tarefas de $dayMessage';
+    }
+    return 'Tarefas';
+  }
+
+  String get headerSubtitle {
+    return AppFormatters.completeDay(DateTime.now());
   }
 
   @override
@@ -45,8 +59,8 @@ class _HomePageState extends State<HomePage> {
           children: [
             HeaderWidget(
               onAddTap: navigateToForm,
-              title: 'Tarefas de hoje',
-              subtitle: 'Hoje',
+              title: headerTitle,
+              subtitle: headerSubtitle,
             ),
             const SizedBox(height: 20),
             const FilterListComponent(),

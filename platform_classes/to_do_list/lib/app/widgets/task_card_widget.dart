@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_list/app/core/shared/utils/app_formatters.dart';
 
 class TaskCardWidget extends StatelessWidget {
   const TaskCardWidget({
@@ -17,6 +18,21 @@ class TaskCardWidget extends StatelessWidget {
   final DateTime initialDate;
   final DateTime endDate;
   final VoidCallback onTap;
+
+  TextDecoration get titleDecoration {
+    if (isDone) {
+      return TextDecoration.lineThrough;
+    } else {
+      return TextDecoration.none;
+    }
+  }
+
+  String get initHour => AppFormatters.formatHourFromDate(initialDate);
+  String get endHour => AppFormatters.formatHourFromDate(endDate);
+  String get dayMessage {
+    final message = AppFormatters.dayMessage(initialDate);
+    return message ?? AppFormatters.onlyDay(initialDate);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +56,7 @@ class TaskCardWidget extends StatelessWidget {
                     Text(
                       title,
                       style: theme.textTheme.titleLarge?.copyWith(
-                        decoration: isDone
-                            ? TextDecoration.lineThrough
-                            : TextDecoration.none,
+                        decoration: titleDecoration,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -59,13 +73,13 @@ class TaskCardWidget extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 8.0),
               child: Divider(),
             ),
-            const Text.rich(
+            Text.rich(
               TextSpan(
                 children: [
                   TextSpan(
-                      text: 'Today   ',
-                      style: TextStyle(fontWeight: FontWeight.w600)),
-                  TextSpan(text: '10:00 AM - 11:45 PM'),
+                      text: '$dayMessage   ',
+                      style: const TextStyle(fontWeight: FontWeight.w600)),
+                  TextSpan(text: '$initHour - $endHour'),
                 ],
               ),
             ),
