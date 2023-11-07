@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:to_do_list/app/pages/home_page.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:to_do_list/app/modules/value_notifier/pages/home_vn_page.dart';
 import 'package:to_do_list/app/themes/app_theme.dart';
 
 class AppWidget extends StatelessWidget {
@@ -8,9 +9,11 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    Modular.setInitialRoute('/home/');
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      routeInformationParser: Modular.routeInformationParser,
+      routerDelegate: Modular.routerDelegate,
       theme: AppTheme.light,
       locale: const Locale('pt', 'BR'),
       supportedLocales: const [Locale('pt', 'BR')],

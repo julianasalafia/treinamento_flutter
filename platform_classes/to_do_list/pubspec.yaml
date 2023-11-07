@@ -16,6 +16,7 @@ dependencies:
   flutterando_analysis: ^0.0.2
   flutter_launcher_icons: ^0.13.1
   intl: 0.18.0
+  flutter_modular: ^6.3.2
 
 dev_dependencies:
   flutter_test:

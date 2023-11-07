@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_list/app/core/shared/utils/app_formatters.dart';
+import 'package:to_do_list/app/core/shared/utils/string_extension.dart';
 
 class FormController {
   FormController() {
@@ -12,11 +13,11 @@ class FormController {
     endHourController = TextEditingController();
   }
   late final GlobalKey<FormState> formKey;
-  late final titleController;
-  late final descriptionController;
-  late final dateController;
-  late final initHourController;
-  late final endHourController;
+  late final TextEditingController titleController;
+  late final TextEditingController descriptionController;
+  late final TextEditingController dateController;
+  late final TextEditingController initHourController;
+  late final TextEditingController endHourController;
 
   Future<void> add() async {
     final isValid = formKey.currentState!.validate();
@@ -27,7 +28,7 @@ class FormController {
 
   void changeDate(DateTime newDate) {
     final value = AppFormatters.completeDay(newDate);
-    dateController.text = value;
+    dateController.text = value.capitalize();
   }
 
   void changeInitHour(TimeOfDay newTime) {

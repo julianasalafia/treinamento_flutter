@@ -1,27 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:to_do_list/app/components/filter_list_component.dart';
 import 'package:to_do_list/app/components/task_list_component.dart';
 import 'package:to_do_list/app/core/shared/utils/app_formatters.dart';
-import 'package:to_do_list/app/pages/add_task_page.dart';
+import 'package:to_do_list/app/core/shared/utils/string_extension.dart';
+import 'package:to_do_list/app/modules/value_notifier/pages/add_task_vn_page.dart';
 import 'package:to_do_list/app/widgets/header_widget.dart';
 import 'package:to_do_list/app/widgets/home_app_bar_widget.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomeVnPage extends StatefulWidget {
+  const HomeVnPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeVnPage> createState() => _HomeVnPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeVnPageState extends State<HomeVnPage> {
   void navigateToForm() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) {
-          return const AddTaskPage();
-        },
-      ),
-    );
+    Modular.to.pushNamed('add');
   }
 
   String get headerTitle {
@@ -34,7 +30,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   String get headerSubtitle {
-    return AppFormatters.completeDay(DateTime.now());
+    return AppFormatters.completeDay(DateTime.now()).capitalize();
   }
 
   @override
@@ -60,7 +56,7 @@ class _HomePageState extends State<HomePage> {
             HeaderWidget(
               onAddTap: navigateToForm,
               title: headerTitle,
-              subtitle: headerSubtitle,
+              subtitle: headerSubtitle.capitalize(),
             ),
             const SizedBox(height: 20),
             const FilterListComponent(),
