@@ -5,13 +5,19 @@ import 'package:to_do_list/app/components/task_list_component.dart';
 import 'package:to_do_list/app/core/shared/utils/app_formatters.dart';
 import 'package:to_do_list/app/core/shared/utils/string_extension.dart';
 import 'package:to_do_list/app/modules/value_notifier/store/date_vn_store.dart';
+import 'package:to_do_list/app/modules/value_notifier/store/tasks_vn_store.dart';
 import 'package:to_do_list/app/widgets/header_widget.dart';
 import 'package:to_do_list/app/widgets/home_app_bar_widget.dart';
 
 class HomeVnPage extends StatefulWidget {
-  const HomeVnPage({super.key, required this.dateVnStore});
+  const HomeVnPage({
+    super.key,
+    required this.dateVnStore,
+    required this.tasksVnStore,
+  });
 
   final DateVnStore dateVnStore;
+  final TasksVnStore tasksVnStore;
 
   @override
   State<HomeVnPage> createState() => _HomeVnPageState();
@@ -19,9 +25,7 @@ class HomeVnPage extends StatefulWidget {
 
 class _HomeVnPageState extends State<HomeVnPage> {
   DateVnStore get dateStore => widget.dateVnStore;
-  void navigateToForm() {
-    Modular.to.pushNamed('add');
-  }
+  TasksVnStore get tasksStore => widget.tasksVnStore;
 
   String get headerTitle {
     final dayMessage = AppFormatters.dayMessage(dateStore.value);
@@ -34,6 +38,27 @@ class _HomeVnPageState extends State<HomeVnPage> {
 
   String get headerSubtitle {
     return AppFormatters.completeDay(dateStore.value).capitalize();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    tasksStore.getTasks(dateStore.value);
+    dateStore.addListener(reloadTasksOnDateChange);
+  }
+
+  void reloadTasksOnDateChange() {
+    tasksStore.getTasks(dateStore.value);
+  }
+
+  @override
+  void dispose() {
+    dateStore.removeListener(reloadTasksOnDateChange);
+    super.dispose();
+  }
+
+  void navigateToForm() {
+    Modular.to.pushNamed('add');
   }
 
   @override
@@ -74,7 +99,10 @@ class _HomeVnPageState extends State<HomeVnPage> {
             const SizedBox(height: 20),
             const FilterListComponent(),
             const SizedBox(height: 20),
-            const Expanded(child: TaskListComponent()),
+            Expanded(
+                child: TaskListComponent(
+              tasksVnStore: tasksStore,
+            )),
           ],
         ),
       ),
