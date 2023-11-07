@@ -4,24 +4,27 @@ import 'package:to_do_list/app/components/filter_list_component.dart';
 import 'package:to_do_list/app/components/task_list_component.dart';
 import 'package:to_do_list/app/core/shared/utils/app_formatters.dart';
 import 'package:to_do_list/app/core/shared/utils/string_extension.dart';
-import 'package:to_do_list/app/modules/value_notifier/pages/add_task_vn_page.dart';
+import 'package:to_do_list/app/modules/value_notifier/store/date_vn_store.dart';
 import 'package:to_do_list/app/widgets/header_widget.dart';
 import 'package:to_do_list/app/widgets/home_app_bar_widget.dart';
 
 class HomeVnPage extends StatefulWidget {
-  const HomeVnPage({super.key});
+  const HomeVnPage({super.key, required this.dateVnStore});
+
+  final DateVnStore dateVnStore;
 
   @override
   State<HomeVnPage> createState() => _HomeVnPageState();
 }
 
 class _HomeVnPageState extends State<HomeVnPage> {
+  DateVnStore get dateStore => widget.dateVnStore;
   void navigateToForm() {
     Modular.to.pushNamed('add');
   }
 
   String get headerTitle {
-    final dayMessage = AppFormatters.dayMessage(DateTime.now());
+    final dayMessage = AppFormatters.dayMessage(dateStore.value);
 
     if (dayMessage != null) {
       return 'Tarefas de $dayMessage';
@@ -30,7 +33,7 @@ class _HomeVnPageState extends State<HomeVnPage> {
   }
 
   String get headerSubtitle {
-    return AppFormatters.completeDay(DateTime.now()).capitalize();
+    return AppFormatters.completeDay(dateStore.value).capitalize();
   }
 
   @override
@@ -38,13 +41,18 @@ class _HomeVnPageState extends State<HomeVnPage> {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: HomeAppBarWidget(
-        title: Text(
-          'Hoje',
-          style: theme.appBarTheme.titleTextStyle,
+        onPreviousTap: dateStore.previousDate,
+        onNextTap: dateStore.nextDate,
+        onTitleTap: dateStore.changeDate,
+        title: ValueListenableBuilder(
+          valueListenable: dateStore,
+          builder: (_, date, __) {
+            return Text(
+              AppFormatters.completeDay(date).capitalize(),
+              style: theme.appBarTheme.titleTextStyle,
+            );
+          },
         ),
-        onPreviousTap: () {},
-        onNextTap: () {},
-        onTitleTap: (date) {},
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -53,10 +61,15 @@ class _HomeVnPageState extends State<HomeVnPage> {
         ),
         child: Column(
           children: [
-            HeaderWidget(
-              onAddTap: navigateToForm,
-              title: headerTitle,
-              subtitle: headerSubtitle.capitalize(),
+            ValueListenableBuilder(
+              valueListenable: dateStore,
+              builder: (_, date, __) {
+                return HeaderWidget(
+                  onAddTap: navigateToForm,
+                  title: headerTitle,
+                  subtitle: headerSubtitle.capitalize(),
+                );
+              },
             ),
             const SizedBox(height: 20),
             const FilterListComponent(),
