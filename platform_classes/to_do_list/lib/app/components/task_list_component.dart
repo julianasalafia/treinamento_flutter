@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_list/app/modules/value_notifier/store/tasks_vn_store.dart';
+import 'package:to_do_list/app/modules/value_notifier/stores/tasks_vn_store.dart';
 import '../widgets/task_card_widget.dart';
 
 class TaskListComponent extends StatelessWidget {
