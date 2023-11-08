@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:to_do_list/app/core/add_task_param.dart';
 import 'package:to_do_list/app/core/shared/utils/app_formatters.dart';
 import 'package:to_do_list/app/core/shared/utils/string_extension.dart';
 
-class FormController {
+abstract class FormController {
   FormController() {
     formKey = GlobalKey<FormState>();
     titleController = TextEditingController();
@@ -22,11 +22,20 @@ class FormController {
   TimeOfDay? _initHour;
   TimeOfDay? _endHour;
 
+  Future<void> save(AddTaskParam param);
+
   Future<void> add() async {
     final isValid = formKey.currentState!.validate();
     if (!isValid) return;
 
-    print('add');
+    final param = AddTaskParam(
+      title: titleController.text,
+      description: descriptionController.text,
+      initialDate: _generateDate(time: _initHour!, date: _selectedDate),
+      endDate: _generateDate(time: _endHour!, date: _selectedDate),
+    );
+
+    await save(param);
   }
 
   void changeDate(DateTime newDate) {
