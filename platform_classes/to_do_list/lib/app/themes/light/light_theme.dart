@@ -34,6 +34,8 @@ class LightTheme {
         focusedBadgeColor: LightColors.darkBlue,
         unfocusedBadgeColor: LightColors.lightGray,
         doneBorderColor: LightColors.lightGray,
+        shimmerBaseColor: Colors.grey.shade200,
+        shimmerHighlightColor: Colors.grey.shade300,
       ),
     ],
   );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:to_do_list/app/modules/value_notifier/stores/states/tasks_vn_state.dart';
 import 'package:to_do_list/app/modules/value_notifier/stores/tasks_vn_store.dart';
+import 'package:to_do_list/app/themes/color_extension.dart';
 import '../widgets/task_card_widget.dart';
 
 class TaskListComponent extends StatelessWidget {
@@ -11,14 +12,15 @@ class TaskListComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorExtension = Theme.of(context).extension<ColorExtension>()!;
     return ValueListenableBuilder(
         valueListenable: tasksVnStore,
         builder: (_, state, __) {
           if (state is LoadingTasksVnState) {
             return SizedBox(
               child: Shimmer.fromColors(
-                baseColor: Colors.grey.shade200,
-                highlightColor: Colors.grey.shade300,
+                baseColor: colorExtension.shimmerBaseColor,
+                highlightColor: colorExtension.shimmerHighlightColor,
                 child: ListView.separated(
                     itemCount: 50,
                     separatorBuilder: (_, __) => const SizedBox(height: 12),
@@ -27,7 +29,7 @@ class TaskListComponent extends StatelessWidget {
                         width: double.infinity,
                         height: 125,
                         decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
+                          color: colorExtension.shimmerBaseColor,
                           borderRadius:
                               const BorderRadius.all(Radius.circular(8)),
                         ),
