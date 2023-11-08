@@ -17,6 +17,7 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   intl: 0.18.0
   flutter_modular: ^6.3.2
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:to_do_list/app/modules/value_notifier/stores/states/tasks_vn_state.dart';
 import 'package:to_do_list/app/modules/value_notifier/stores/tasks_vn_store.dart';
 import '../widgets/task_card_widget.dart';
 
@@ -11,12 +13,40 @@ class TaskListComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
         valueListenable: tasksVnStore,
-        builder: (_, tasks, __) {
+        builder: (_, state, __) {
+          if (state is LoadingTasksVnState) {
+            return SizedBox(
+              child: Shimmer.fromColors(
+                baseColor: Colors.grey.shade200,
+                highlightColor: Colors.grey.shade300,
+                child: ListView.separated(
+                    itemCount: 50,
+                    separatorBuilder: (_, __) => const SizedBox(height: 12),
+                    itemBuilder: (_, __) {
+                      return Container(
+                        width: double.infinity,
+                        height: 125,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade300,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(8)),
+                        ),
+                      );
+                    }),
+              ),
+            );
+          }
+
+          if (state is ErrorTasksVnState) {
+            return Center(
+              child: Text(state.message),
+            );
+          }
           return ListView.separated(
-            itemCount: tasks.filteredTasks.length,
+            itemCount: state.filteredTasks.length,
             separatorBuilder: (_, __) => const SizedBox(height: 8),
             itemBuilder: (_, index) {
-              final task = tasks.filteredTasks.elementAt(index);
+              final task = state.filteredTasks.elementAt(index);
               return TaskCardWidget(
                 isDone: task.isDone,
                 title: task.title,

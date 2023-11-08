@@ -1,35 +1,45 @@
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:to_do_list/app/core/models/task_model.dart';
-import 'package:to_do_list/app/modules/value_notifier/stores/states/tasks_states.dart';
+import 'package:to_do_list/app/modules/value_notifier/stores/states/tasks_vn_state.dart';
 
-class TasksVnStore extends ValueNotifier<TasksStates> {
-  TasksVnStore() : super(TasksStates.initialState());
+class TasksVnStore extends ValueNotifier<TasksVnState> {
+  TasksVnStore() : super(TasksVnState.initialState());
 
   Future<void> getTasks(DateTime date) async {
-    final random = Random();
+    value = const LoadingTasksVnState();
+    await Future.delayed(const Duration(seconds: 3));
 
-    final tasks = List.generate(50, (index) {
-      final now = DateTime.now();
-      final initialDate = now.add(Duration(days: random.nextInt(25) - 1));
+    // value = const ErrorTasksVnState('Random Error');
+    // await Future.delayed(const Duration(seconds: 3));
 
-      return TaskModel(
-        title: 'Title $index',
-        description: 'Description $index',
-        initialDate: initialDate,
-        endDate: initialDate.add(Duration(minutes: index * 2)),
-        isDone: index.isEven,
-        id: index,
-        status: TaskStatus.values[index % 3],
+    try {
+      final random = Random();
+
+      final tasks = List.generate(50, (index) {
+        final now = DateTime.now();
+        final initialDate = now.add(Duration(days: random.nextInt(25) - 1));
+
+        return TaskModel(
+          title: 'Title $index',
+          description: 'Description $index',
+          initialDate: initialDate,
+          endDate: initialDate.add(Duration(minutes: index * 2)),
+          isDone: index.isEven,
+          id: index,
+          status: TaskStatus.values[index % 3],
+        );
+      });
+
+      value = value.copyWith(
+        allTasks: tasks,
+        taskStatus: value.taskStatus,
       );
-    });
-
-    value = value.copyWith(
-      allTasks: tasks,
-      taskStatus: value.taskStatus,
-    );
-    filterTasksDate(date);
+      filterTasksDate(date);
+    } catch (e) {
+      value = ErrorTasksVnState(e.toString());
+    }
   }
 
   void filterTasksDate(DateTime date) {
