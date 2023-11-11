@@ -11,9 +11,15 @@ class ValueNotifierModule extends Module {
   void binds(Injector i) {
     i.addSingleton(DateVnStore.new);
     i.addSingleton(TasksVnStore.new);
-    i.add(() => AddTaskVnStore(false));
-    i.add(() => FormVnController(
-        addTaskVnStore: i(), tasksVnStore: i(), dateVnStore: i()));
+    i.add(() => AddTaskVnStore());
+    i.add(
+      () => FormVnController(
+        addTaskVnStore: i(),
+        tasksVnStore: i(),
+        dateVnStore: i(),
+        overlayService: i(),
+      ),
+    );
   }
 
   @override

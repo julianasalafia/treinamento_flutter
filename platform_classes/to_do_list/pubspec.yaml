@@ -18,6 +18,7 @@ dependencies:
   intl: 0.18.0
   flutter_modular: ^6.3.2
   shimmer: ^3.0.0
+  asuka: ^2.2.0
 
 dev_dependencies:
   flutter_test:
