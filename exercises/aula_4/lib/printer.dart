@@ -271,79 +271,80 @@ abstract class Printer with Console {
   }
 
   AccountModel transfer({required AccountModel account}) {
-    List<String> keysPix = List.from(account.keysPix);
-    late String userPixKey;
+    try {
+      List<String> keysPix = List.from(account.keysPix);
+      late String userPixKey;
 
-    print(Messages.transferTitle);
+      print(Messages.transferTitle);
 
-    String answer;
+      String answer;
 
-    stdout.write(Messages.questionTransfer);
-    answer = stdin.readLineSync()!.toUpperCase();
+      stdout.write(Messages.questionTransfer);
+      answer = stdin.readLineSync()!.toUpperCase();
 
-    while (answer == 'Y') {
-      if (keysPix.isNotEmpty) {
-        for (var element in account.keysPix) {
-          print('Chave cadastrada: $element.');
+      while (answer == 'Y') {
+        if (keysPix.isNotEmpty) {
+          for (var element in account.keysPix) {
+            print('Chave cadastrada: $element.');
+          }
+
+          stdout.write(Messages.pixRegisteredKeys);
+          answer = stdin.readLineSync()!.toUpperCase();
+
+          if (answer == 'Y') {
+            userPixKey = keysPix.first;
+          }
+        } else if (keysPix.isEmpty) {
+          stdout.write(Messages.newPixTransfer);
+          final userChoice = int.parse(stdin.readLineSync()!);
+
+          switch (userChoice) {
+            case 1:
+              final pixEmail =
+                  writeAndReadWithValidator(Messages.typeEmail, validateEmail);
+              userPixKey = pixEmail;
+              break;
+            case 2:
+              final pixPhone = writeAndReadWithValidator(
+                  Messages.typePhoneNumber, validateTelephone);
+              userPixKey = pixPhone;
+              break;
+            case 3:
+              final pixRandomKey = generateRandomPixKey();
+              userPixKey = pixRandomKey;
+              break;
+            default:
+              print(Messages.invalidOption);
+              break;
+          }
+
+          keysPix.add(userPixKey);
+          account = account.copyWith(
+            keysPix: keysPix,
+          );
         }
+        stdout.write(Messages.pixReceiverTransfer);
+        final pixReceiver = stdin.readLineSync()!;
 
-        stdout.write(Messages.pixRegisteredKeys);
-        answer = stdin.readLineSync()!.toUpperCase();
+        stdout.write(Messages.pixAmountTransfer);
+        final pixAmount = double.parse(stdin.readLineSync()!);
 
-        if (answer == 'Y') {
-          userPixKey = keysPix.first;
-        }
-      } else if (keysPix.isEmpty) {
-        stdout.write(Messages.newPixTransfer);
-        final userChoice = int.parse(stdin.readLineSync()!);
+        if (account.balance >= pixAmount) {
+          final balance = account.balance - pixAmount;
 
-        switch (userChoice) {
-          case 1:
-            final pixEmail =
-                writeAndReadWithValidator(Messages.typeEmail, validateEmail);
-            userPixKey = pixEmail;
-            break;
-          case 2:
-            final pixPhone = writeAndReadWithValidator(
-                Messages.typePhoneNumber, validateTelephone);
-            userPixKey = pixPhone;
-            break;
-          case 3:
-            final pixRandomKey = generateRandomPixKey();
-            userPixKey = pixRandomKey;
-            break;
-          default:
-            print(Messages.invalidOption);
-            break;
-        }
+          account = account.copyWith(
+            balance: balance,
+          );
 
-        keysPix.add(userPixKey);
-        account = account.copyWith(
-          keysPix: keysPix,
-        );
-      }
-      stdout.write(Messages.pixReceiverTransfer);
-      final pixReceiver = stdin.readLineSync()!;
+          final transaction = TransactionModel(
+            transactionType: 'TRANSFERÊNCIA',
+            transactionValue: pixAmount,
+            date: DateTime.now(),
+          );
 
-      stdout.write(Messages.pixAmountTransfer);
-      final pixAmount = double.parse(stdin.readLineSync()!);
+          account.transactionHistory.add(transaction);
 
-      if (account.balance >= pixAmount) {
-        final balance = account.balance - pixAmount;
-
-        account = account.copyWith(
-          balance: balance,
-        );
-
-        final transaction = TransactionModel(
-          transactionType: 'TRANSFERÊNCIA',
-          transactionValue: pixAmount,
-          date: DateTime.now(),
-        );
-
-        account.transactionHistory.add(transaction);
-
-        print('''
+          print('''
 =====================================================
                 PIX EFETUADO COM SUCESSO
 =====================================================
@@ -354,12 +355,13 @@ abstract class Printer with Console {
      Saldo: ${account.balance}     
       
      ''');
-
+        }
         stdout.write('Deseja realizar outra transferência? [Y/N]:: ');
         answer = stdin.readLineSync()!.toUpperCase();
       }
+    } on ErrorModel catch (e, _) {
+      print(e.message);
     }
-
     return account;
   }
 
