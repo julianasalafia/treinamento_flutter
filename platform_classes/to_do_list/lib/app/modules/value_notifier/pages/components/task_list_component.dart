@@ -3,7 +3,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:to_do_list/app/modules/value_notifier/stores/states/tasks_vn_state.dart';
 import 'package:to_do_list/app/modules/value_notifier/stores/tasks_vn_store.dart';
 import 'package:to_do_list/app/themes/color_extension.dart';
-import '../widgets/task_card_widget.dart';
+import '../../../../widgets/task_card_widget.dart';
 
 class TaskListComponent extends StatelessWidget {
   const TaskListComponent({super.key, required this.tasksVnStore});
@@ -50,12 +50,14 @@ class TaskListComponent extends StatelessWidget {
             itemBuilder: (_, index) {
               final task = state.filteredTasks.elementAt(index);
               return TaskCardWidget(
+                key: ValueKey('${task.id}-${task.status.name}'),
                 isDone: task.isDone,
                 title: task.title,
                 description: task.description,
                 initialDate: task.initialDate,
                 endDate: task.endDate,
-                onTap: () {},
+                onTap: () => tasksVnStore.doneTask(task),
+                onDismiss: () => tasksVnStore.archiveTask(task),
               );
             },
           );

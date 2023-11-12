@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:to_do_list/app/core/models/task_model.dart';
 import 'package:to_do_list/app/modules/value_notifier/stores/states/tasks_vn_state.dart';
@@ -8,33 +6,46 @@ import '../../../core/repositories/task_repository.dart';
 
 class TasksVnStore extends ValueNotifier<TasksVnState> {
   final TaskRepository repository;
+
   TasksVnStore({required this.repository}) : super(TasksVnState.initialState());
+
+  Future<void> doneTask(TaskModel task) async {
+    late TaskStatus newStatus;
+
+    if (task.status == TaskStatus.closed) {
+      newStatus = TaskStatus.open;
+    } else {
+      newStatus = TaskStatus.closed;
+    }
+
+    final newTask = task.copyWith(status: newStatus, isDone: !task.isDone);
+    await repository.updateTask(newTask);
+
+    await getTasks(task.initialDate);
+  }
+
+  Future<void> archiveTask(TaskModel task) async {
+    late TaskStatus newStatus;
+
+    if (task.status == TaskStatus.archived && task.isDone) {
+      newStatus = TaskStatus.closed;
+    } else if (task.status == TaskStatus.archived && !task.isDone) {
+      newStatus = TaskStatus.open;
+    } else {
+      newStatus = TaskStatus.archived;
+    }
+
+    final newTask = task.copyWith(status: newStatus);
+    await repository.updateTask(newTask);
+
+    await getTasks(task.initialDate);
+  }
 
   Future<void> getTasks(DateTime date) async {
     value = const LoadingTasksVnState();
-    await Future.delayed(const Duration(seconds: 3));
-
-    // value = const ErrorTasksVnState('Random Error');
-    // await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
 
     try {
-      // final random = Random();
-      //
-      // final tasks = List.generate(50, (index) {
-      //   final now = DateTime.now();
-      //   final initialDate = now.add(Duration(days: random.nextInt(25) - 1));
-      //
-      //   return TaskModel(
-      //     title: 'Title $index',
-      //     description: 'Description $index',
-      //     initialDate: initialDate,
-      //     endDate: initialDate.add(Duration(minutes: index * 2)),
-      //     isDone: index.isEven,
-      //     id: index,
-      //     status: TaskStatus.values[index % 3],
-      //   );
-      // });
-
       final tasks = await repository.getTasks();
 
       value = value.copyWith(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list/app/modules/value_notifier/controllers/form_vn_controller.dart';
-
-import '../../../components/add_task_form_component.dart';
+import '../../../core/components/add_task_form_component.dart';
 
 class AddTaskVnPage extends StatelessWidget {
   const AddTaskVnPage({super.key, required this.controller});

@@ -19,7 +19,6 @@ class TaskDoneWidget extends StatelessWidget {
     return Container(
         height: radius * 2,
         width: radius * 2,
-        color: Colors.blue,
         decoration: BoxDecoration(
           border: Border.all(
             color: isDone

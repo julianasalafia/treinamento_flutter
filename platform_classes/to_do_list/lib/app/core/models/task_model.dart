@@ -42,4 +42,24 @@ class TaskModel {
       'status': status.name,
     };
   }
+
+  TaskModel copyWith({
+    int? id,
+    String? title,
+    String? description,
+    DateTime? initialDate,
+    DateTime? endDate,
+    bool? isDone,
+    TaskStatus? status,
+  }) {
+    return TaskModel(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      initialDate: initialDate ?? this.initialDate,
+      endDate: endDate ?? this.endDate,
+      isDone: isDone ?? this.isDone,
+      status: status ?? this.status,
+    );
+  }
 }

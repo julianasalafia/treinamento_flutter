@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:to_do_list/app/components/filter_list_component.dart';
-import 'package:to_do_list/app/components/task_list_component.dart';
+import 'package:to_do_list/app/modules/value_notifier/pages/components/filter_list_component.dart';
+import 'package:to_do_list/app/modules/value_notifier/pages/components/task_list_component.dart';
 import 'package:to_do_list/app/core/shared/utils/app_formatters.dart';
 import 'package:to_do_list/app/core/shared/utils/string_extension.dart';
 import 'package:to_do_list/app/modules/value_notifier/stores/date_vn_store.dart';

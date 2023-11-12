@@ -15,7 +15,7 @@ class AddTaskVnStore extends ValueNotifier<AddTaskVnState> {
   Future<void> add(AddTaskParam param) async {
     value = const LoadingAddTaskVnState();
 
-    Future.delayed(const Duration(seconds: 3));
+    Future.delayed(const Duration(seconds: 1));
     repository.addTask(param);
 
     value = const SuccessAddTaskVnState();

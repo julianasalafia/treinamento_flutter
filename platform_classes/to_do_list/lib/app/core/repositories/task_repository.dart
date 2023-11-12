@@ -28,7 +28,7 @@ class TaskRepository {
     return tasks;
   }
 
-  Future<void> update(TaskModel task) async {
+  Future<void> updateTask(TaskModel task) async {
     await _localStorageService.update(_key, task.id, task.toMap());
   }
 }
