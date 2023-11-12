@@ -10,8 +10,16 @@ class ValueNotifierModule extends Module {
   @override
   void binds(Injector i) {
     i.addSingleton(DateVnStore.new);
-    i.addSingleton(TasksVnStore.new);
-    i.add(() => AddTaskVnStore());
+    i.addSingleton(
+      () => TasksVnStore(
+        repository: i(),
+      ),
+    );
+    i.add(
+      () => AddTaskVnStore(
+        repository: i(),
+      ),
+    );
     i.add(
       () => FormVnController(
         addTaskVnStore: i(),
@@ -31,9 +39,11 @@ class ValueNotifierModule extends Module {
         tasksVnStore: Modular.get<TasksVnStore>(),
       ),
     );
-    r.child('/add',
-        child: (context) => AddTaskVnPage(
-              controller: Modular.get<FormVnController>(),
-            ));
+    r.child(
+      '/add',
+      child: (context) => AddTaskVnPage(
+        controller: Modular.get<FormVnController>(),
+      ),
+    );
   }
 }
