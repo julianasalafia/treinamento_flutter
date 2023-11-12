@@ -18,4 +18,28 @@ class TaskModel {
   final DateTime endDate;
   final bool isDone;
   final TaskStatus status;
+
+  factory TaskModel.fromMap(Map<String, dynamic> map) {
+    return TaskModel(
+      id: map['id'],
+      title: map['title'],
+      description: map['description'],
+      initialDate: DateTime.fromMillisecondsSinceEpoch(map['initialDate']),
+      endDate: DateTime.fromMillisecondsSinceEpoch(map['endDate']),
+      isDone: map['isDone'],
+      status: TaskStatus.values.byName(map['status']),
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      'title': title,
+      'description': description,
+      'initialDate': initialDate.millisecondsSinceEpoch,
+      'endDate': initialDate.millisecondsSinceEpoch,
+      'isDone': isDone,
+      'status': status.name,
+    };
+  }
 }
