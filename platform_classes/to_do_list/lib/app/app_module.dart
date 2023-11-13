@@ -21,6 +21,6 @@ class AppModule extends Module {
   void routes(RouteManager r) {
     r.module('/home', module: HomeModule());
     r.module('/vn', module: ValueNotifierModule());
-    // r.module('/cn', module: ChangeNotifierModule());
+    r.module('/cn', module: ChangeNotifierModule());
   }
 }
