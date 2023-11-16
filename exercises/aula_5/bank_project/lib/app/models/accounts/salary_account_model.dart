@@ -34,4 +34,14 @@ class SalaryAccountModel extends AccountModel {
       card: card ?? this.card,
     );
   }
+
+  static SalaryAccountModel fromJson(Map<String, dynamic> json) {
+    return SalaryAccountModel(
+      balance: json['balance'],
+      accountNumber: json['accountNumber'],
+      agencyNumber: json['agencyNumber'],
+      transactionHistory: json['transactionHistory'],
+      card: json['card'],
+    );
+  }
 }

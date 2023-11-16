@@ -31,4 +31,14 @@ class SavingAccountModel extends AccountModel {
       card: card ?? this.card,
     );
   }
+
+  static SavingAccountModel fromJson(Map<String, dynamic> json) {
+    return SavingAccountModel(
+      balance: json['balance'],
+      accountNumber: json['accountNumber'],
+      agencyNumber: json['agencyNumber'],
+      transactionHistory: json['transactionHistory'],
+      card: json['card'],
+    );
+  }
 }

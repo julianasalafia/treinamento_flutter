@@ -1,3 +1,6 @@
+import 'package:bank_project/app/models/accounts/account_factory.dart';
+import 'package:bank_project/app/models/accounts/account_model.dart';
+
 import 'person_model.dart';
 
 class PhysicalPersonModel extends PersonModel {
@@ -13,9 +16,22 @@ class PhysicalPersonModel extends PersonModel {
     required super.accounts,
   });
 
-  @override
-  String toString() {
-    return 'PersonModel(name: $name, address: $address, telephone: $telephone, accounts: $accounts, cpf: $cpf, birthAt: $birthAt)';
+  factory PhysicalPersonModel.fromJson(Map<String, dynamic> json) {
+    final accounts = <AccountModel>[];
+
+    for (var account in json['accounts']) {
+      final accountJson = AccountFactory.fromJson(account);
+      accounts.add(accountJson);
+    }
+
+    return PhysicalPersonModel(
+      cpf: json['cpf'],
+      birthAt: json['birthAt'],
+      name: json['name'],
+      address: json['address'],
+      telephone: json['telephone'],
+      accounts: accounts,
+    );
   }
 
   @override

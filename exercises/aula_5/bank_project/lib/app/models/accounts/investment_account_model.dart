@@ -35,4 +35,14 @@ class InvestmentAccountModel extends AccountModel {
       card: card ?? this.card,
     );
   }
+
+  static InvestmentAccountModel fromJson(Map<String, dynamic> json) {
+    return InvestmentAccountModel(
+      balance: json['balance'],
+      accountNumber: json['accountNumber'],
+      agencyNumber: json['agencyNumber'],
+      transactionHistory: json['transactionHistory'],
+      card: json['card'],
+    );
+  }
 }
