@@ -3,21 +3,22 @@ import 'package:to_do_list/app/modules/bloc/stores/date_bloc_event.dart';
 
 class DateBlocStore extends Bloc<DateBlocEvent, DateTime> {
   DateBlocStore() : super(DateTime.now()) {
-    on<NextDateBlocEvent>(nextDate);
-    on<PreviousDateBlocEvent>(previousDate);
+    on<NextDateBlocEvent>(_nextDate);
+    on<PreviousDateBlocEvent>(_previousDate);
+    on<ChangeDateBlocEvent>(_changeDate);
   }
 
-  void nextDate(NextDateBlocEvent event, Emitter<DateTime> emitter) {
+  void _nextDate(NextDateBlocEvent event, Emitter<DateTime> emitter) {
     final newState = state.add(const Duration(days: 1));
     emitter(newState);
   }
 
-  void previousDate(PreviousDateBlocEvent event, Emitter<DateTime> emitter) {
+  void _previousDate(PreviousDateBlocEvent event, Emitter<DateTime> emitter) {
     final newState = state.subtract(const Duration(days: 1));
     emitter(newState);
   }
 
-  void changeDate(ChangeDateBlocEvent event, Emitter<DateTime> emitter) {
+  void _changeDate(ChangeDateBlocEvent event, Emitter<DateTime> emitter) {
     emitter(event.date);
   }
 }
