@@ -28,6 +28,10 @@ class HomePage extends StatelessWidget {
               route: '/cn/',
               title: 'ChangeNotifier',
             ),
+            HomeElevatedButtonWidget(
+              route: '/bloc/',
+              title: 'Bloc',
+            ),
           ],
         ),
       ),
