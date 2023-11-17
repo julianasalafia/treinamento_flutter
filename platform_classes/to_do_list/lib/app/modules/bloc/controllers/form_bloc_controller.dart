@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:to_do_list/app/modules/bloc/stores/date_bloc_event.dart';
+import 'package:to_do_list/app/modules/bloc/stores/events/date_bloc_event.dart';
+import 'package:to_do_list/app/modules/bloc/stores/events/tasks_bloc_event.dart';
 
 import '../../../controllers/form_controller.dart';
 import '../../../core/repositories/add_task_param.dart';
@@ -33,7 +34,7 @@ class FormBlocController extends FormController {
 
     if (addTaskBlocStore.isSuccess) {
       _dateBlocStore.add(ChangeDateBlocEvent(param.initialDate));
-      unawaited(_tasksBlocStore.getTasks(param.initialDate));
+      _tasksBlocStore.add(GetTasksBlocEvent(param.initialDate));
 
       Modular.to.pop();
     }

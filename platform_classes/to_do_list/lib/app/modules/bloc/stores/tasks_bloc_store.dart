@@ -1,17 +1,28 @@
-import 'package:flutter/material.dart';
+import 'package:bloc/bloc.dart';
 import 'package:to_do_list/app/core/models/task_model.dart';
+import 'package:to_do_list/app/modules/bloc/stores/events/tasks_bloc_event.dart';
 import 'package:to_do_list/app/modules/bloc/stores/states/tasks_bloc_state.dart';
 
 import '../../../core/repositories/task_repository.dart';
 
-class TasksBlocStore extends ValueNotifier<TasksBlocState> {
+class TasksBlocStore extends Bloc<TasksBlocEvent, TasksBlocState> {
   final TaskRepository repository;
 
   TasksBlocStore({required this.repository})
-      : super(TasksBlocState.initialState());
+      : super(TasksBlocState.initialState()) {
+    on<DoneTaskBlocEvent>((event, _) => _doneTask(event));
+    on<ArchiveTaskBlocEvent>((event, _) => _archiveTask(event));
+    on<GetTasksBlocEvent>(_getTasks);
+    on<FilterTasksByDateBlocEvent>(_filterTasksDate);
+    on<FilterTasksByStatusBlocEvent>(_filterTasksStatus);
+    on<ClearFilterByStatusBlocEvent>(
+      (_, emitter) => _clearStatusFilter(emitter),
+    );
+  }
 
-  Future<void> doneTask(TaskModel task) async {
+  Future<void> _doneTask(DoneTaskBlocEvent event) async {
     late TaskStatus newStatus;
+    final task = event.task;
 
     if (task.status == TaskStatus.closed) {
       newStatus = TaskStatus.open;
@@ -22,11 +33,12 @@ class TasksBlocStore extends ValueNotifier<TasksBlocState> {
     final newTask = task.copyWith(status: newStatus, isDone: !task.isDone);
     await repository.updateTask(newTask);
 
-    await getTasks(task.initialDate);
+    add(GetTasksBlocEvent(task.initialDate));
   }
 
-  Future<void> archiveTask(TaskModel task) async {
+  Future<void> _archiveTask(ArchiveTaskBlocEvent event) async {
     late TaskStatus newStatus;
+    final task = event.task;
 
     if (task.status == TaskStatus.archived && task.isDone) {
       newStatus = TaskStatus.closed;
@@ -39,60 +51,68 @@ class TasksBlocStore extends ValueNotifier<TasksBlocState> {
     final newTask = task.copyWith(status: newStatus);
     await repository.updateTask(newTask);
 
-    await getTasks(task.initialDate);
+    add(GetTasksBlocEvent(task.initialDate));
   }
 
-  Future<void> getTasks(DateTime date) async {
-    value = const LoadingTasksBlocState();
+  Future<void> _getTasks(
+      GetTasksBlocEvent event, Emitter<TasksBlocState> emitter) async {
+    emitter(const LoadingTasksBlocState());
     await Future.delayed(const Duration(seconds: 1));
 
     try {
       final tasks = await repository.getTasks();
 
-      value = value.copyWith(
+      final newState = state.copyWith(
         allTasks: tasks,
-        taskStatus: value.taskStatus,
+        taskStatus: state.taskStatus,
       );
-      filterTasksDate(date);
+      emitter(newState);
+      add(FilterTasksByDateBlocEvent(event.date));
     } catch (e) {
-      value = ErrorTasksBlocState(e.toString());
+      emitter(ErrorTasksBlocState(e.toString()));
     }
   }
 
-  void filterTasksDate(DateTime date) {
-    final tasks = value.allTasks;
+  void _filterTasksDate(
+      FilterTasksByDateBlocEvent event, Emitter<TasksBlocState> emitter) {
+    final tasks = state.allTasks;
 
-    final dateToFilter = _resetHour(date);
+    final dateToFilter = _resetHour(event.date);
 
     final newCurrentTasks = tasks.where((e) {
       final initial = _resetHour(e.initialDate);
       return initial.isAtSameMomentAs(dateToFilter);
     }).toList();
 
-    value = value.copyWith(
-      taskStatus: value.taskStatus,
+    final newState = state.copyWith(
+      taskStatus: state.taskStatus,
       currentDateTasks: newCurrentTasks,
       filteredTasks: newCurrentTasks,
     );
+    emitter(newState);
   }
 
-  void clearStatusFilter() {
-    value = value.copyWith(
-      filteredTasks: value.currentDateTasks,
+  void _clearStatusFilter(Emitter<TasksBlocState> emitter) {
+    final newState = state.copyWith(
+      filteredTasks: state.currentDateTasks,
     );
+    emitter(newState);
   }
 
-  void filterTasksStatus(TaskStatus status) {
-    final tasks = value.currentDateTasks;
+  void _filterTasksStatus(
+      FilterTasksByStatusBlocEvent event, Emitter<TasksBlocState> emitter) {
+    final tasks = state.currentDateTasks;
+    final status = event.status;
 
     final filteredTasks = tasks.where((e) {
       return e.status == status;
     }).toList();
 
-    value = value.copyWith(
+    final newState = state.copyWith(
       taskStatus: status,
       filteredTasks: filteredTasks,
     );
+    emitter(newState);
   }
 
   static DateTime _resetHour(DateTime date) {

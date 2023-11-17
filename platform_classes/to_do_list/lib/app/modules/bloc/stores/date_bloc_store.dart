@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:to_do_list/app/modules/bloc/stores/date_bloc_event.dart';
+import 'package:to_do_list/app/modules/bloc/stores/events/date_bloc_event.dart';
 
 class DateBlocStore extends Bloc<DateBlocEvent, DateTime> {
   DateBlocStore() : super(DateTime.now()) {

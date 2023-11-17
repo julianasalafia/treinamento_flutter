@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:to_do_list/app/core/shared/utils/string_extension.dart';
-import 'package:to_do_list/app/modules/bloc/stores/date_bloc_event.dart';
+import 'package:to_do_list/app/modules/bloc/stores/events/date_bloc_event.dart';
+import 'package:to_do_list/app/modules/bloc/stores/events/tasks_bloc_event.dart';
 
 import '../../../core/shared/utils/app_formatters.dart';
 import '../../../widgets/header_widget.dart';
@@ -49,12 +50,12 @@ class _HomeBlocPageState extends State<HomeBlocPage> {
   @override
   void initState() {
     super.initState();
-    tasksStore.getTasks(dateStore.state);
+    tasksStore.add(GetTasksBlocEvent(dateStore.state));
     dateSubscription = dateStore.stream.listen(reloadTasksOnDateChange);
   }
 
   void reloadTasksOnDateChange(DateTime date) {
-    tasksStore.filterTasksDate(date);
+    tasksStore.add(FilterTasksByDateBlocEvent(date));
   }
 
   @override

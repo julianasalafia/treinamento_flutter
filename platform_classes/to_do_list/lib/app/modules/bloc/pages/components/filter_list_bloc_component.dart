@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_list/app/modules/bloc/stores/events/tasks_bloc_event.dart';
 
 import '../../../../core/models/task_model.dart';
 import '../../../../widgets/filter_item_widget.dart';
+import '../../stores/states/tasks_bloc_state.dart';
 import '../../stores/tasks_bloc_store.dart';
 
 class FilterListBlocComponent extends StatelessWidget {
@@ -10,14 +13,14 @@ class FilterListBlocComponent extends StatelessWidget {
   final TasksBlocStore tasksBlocStore;
 
   void filterTask(TaskStatus status) {
-    tasksBlocStore.filterTasksStatus(status);
+    tasksBlocStore.add(FilterTasksByStatusBlocEvent(status));
   }
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-        valueListenable: tasksBlocStore,
-        builder: (_, state, __) {
+    return BlocBuilder(
+        bloc: tasksBlocStore,
+        builder: (_, TasksBlocState state) {
           return SizedBox(
             height: 20,
             child: ListView(
@@ -27,7 +30,9 @@ class FilterListBlocComponent extends StatelessWidget {
                   title: 'Todas',
                   isSelected: state.taskStatus == null,
                   notificationCount: state.currentDateTasks.length,
-                  onTap: tasksBlocStore.clearStatusFilter,
+                  onTap: () => tasksBlocStore.add(
+                    const ClearFilterByStatusBlocEvent(),
+                  ),
                 ),
                 const SizedBox(width: 6),
                 const VerticalDivider(),
