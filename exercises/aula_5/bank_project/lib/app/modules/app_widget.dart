@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../view/themes/app_theme.dart';
+
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
 
@@ -10,6 +12,7 @@ class AppWidget extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'App Widget',
       routerConfig: Modular.routerConfig,
+      theme: AppTheme.dark,
     );
   }
 }
