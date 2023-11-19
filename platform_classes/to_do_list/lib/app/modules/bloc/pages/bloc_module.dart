@@ -10,8 +10,8 @@ import 'home_bloc_page.dart';
 class BlocModule extends Module {
   @override
   void binds(Injector i) {
-    i.addSingleton(DateBlocStore.new);
-    i.addSingleton(
+    i.addLazySingleton(DateBlocStore.new);
+    i.addLazySingleton(
       () => TasksBlocStore(
         repository: i(),
       ),
