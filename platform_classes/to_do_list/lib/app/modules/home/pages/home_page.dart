@@ -32,6 +32,10 @@ class HomePage extends StatelessWidget {
               route: '/bloc/',
               title: 'Bloc',
             ),
+            HomeElevatedButtonWidget(
+              route: '/cubit/',
+              title: 'Cubit',
+            ),
           ],
         ),
       ),
