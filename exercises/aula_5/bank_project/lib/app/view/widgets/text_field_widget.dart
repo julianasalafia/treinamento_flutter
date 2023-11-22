@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class TextFieldWidget extends StatelessWidget {
   final String hintText;
   final bool obscureText;
-  final TextEditingController controller;
+  final TextEditingController? controller;
 
   const TextFieldWidget({
     Key? key,

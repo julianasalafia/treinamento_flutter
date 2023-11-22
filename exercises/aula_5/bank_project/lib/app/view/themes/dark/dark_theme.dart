@@ -3,14 +3,16 @@ import 'dark_colors.dart';
 
 class DarkTheme {
   static final theme = ThemeData(
+    scaffoldBackgroundColor: DarkColors.grey,
     appBarTheme: const AppBarTheme(
-      backgroundColor: DarkColors.grey,
+      color: DarkColors.grey,
       elevation: 0,
       titleTextStyle: TextStyle(
         color: DarkColors.white,
         fontSize: 20,
+        fontFamily: 'Barracuda',
       ),
-      iconTheme: IconThemeData(color: Colors.black87),
+      iconTheme: IconThemeData(color: Colors.white),
     ),
     dividerColor: DarkColors.gray,
     textTheme: const TextTheme(
@@ -30,18 +32,33 @@ class DarkTheme {
         fontSize: 22,
       ),
     ),
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        elevation: 0,
+    filledButtonTheme: FilledButtonThemeData(
+      style: TextButton.styleFrom(
+        textStyle: const TextStyle(
+          color: DarkColors.white,
+          fontFamily: 'Barracuda',
+          fontSize: 18,
+        ),
         backgroundColor: DarkColors.orange,
-        foregroundColor: DarkColors.orange,
-        shape: const ContinuousRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(20),
-          ),
+        minimumSize: const Size(double.infinity, 48),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.zero,
         ),
       ),
     ),
-    backgroundColor: DarkColors.grey,
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: TextButton.styleFrom(
+        textStyle: const TextStyle(
+          color: DarkColors.white,
+          fontFamily: 'Barracuda',
+          fontSize: 18,
+        ),
+        side: const BorderSide(width: 2.0, color: DarkColors.orange),
+        minimumSize: const Size(double.infinity, 48),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.zero,
+        ),
+      ),
+    ),
   );
 }

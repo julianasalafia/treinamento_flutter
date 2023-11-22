@@ -1,8 +1,12 @@
-import 'package:bank_project/app/view/widgets/physical_person_sign_up_page_view_widget.dart';
+import 'package:bank_project/app/view/pages/register/legal_person/legal_person_sign_up_second_page.dart';
+import 'package:bank_project/app/view/pages/register/legal_person/legal_person_sign_up_third_page.dart';
+import 'package:bank_project/app/view/pages/register/physical_person/physical_person_sign_up_first_page.dart';
+import 'package:bank_project/app/view/pages/register/physical_person/physical_person_sign_up_second_page.dart';
+import 'package:bank_project/app/view/pages/register/physical_person/physical_person_sign_up_third_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/accounts/account_model.dart';
-import '../widgets/legal_person_sign_up_page_view_widget.dart';
+import 'register/legal_person/legal_person_sign_up_first_page.dart';
 
 abstract class SignUpPageViewModel {
   final TextEditingController name;
@@ -46,7 +50,7 @@ class PhysicalPersonSignUpPageViewModel extends SignUpPageViewModel {
 class LegalPersonSignUpPageViewModel extends SignUpPageViewModel {
   final TextEditingController cnpj;
 
-  LegalPersonSignUpPageViewModel({
+  const LegalPersonSignUpPageViewModel({
     required this.cnpj,
     required super.name,
     required super.address,
@@ -75,21 +79,27 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return SafeArea(
-      child: Center(
-        child: Scaffold(
-          backgroundColor: theme.backgroundColor,
-          appBar: AppBar(
-            title: Text('Cadastro'),
-          ),
-          body: signUpPageViewModel is PhysicalPersonSignUpPageViewModel
-              ? PhysicalPersonSignUpPageViewWidget(
-                  viewModel:
-                      signUpPageViewModel as PhysicalPersonSignUpPageViewModel)
-              : LegalPersonSignUpPageViewWidget(
-                  viewModel:
-                      signUpPageViewModel as LegalPersonSignUpPageViewModel),
+    final viewModel = signUpPageViewModel;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('CADASTRO'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: PageView(
+          children: [
+            if (viewModel is PhysicalPersonSignUpPageViewModel) ...[
+              PhysicalPersonSignUpFirstPage(viewModel: viewModel),
+              PhysicalPersonSignUpSecondPage(viewModel: viewModel),
+              PhysicalPersonSignUpThirdPage(viewModel: viewModel),
+            ],
+            if (viewModel is LegalPersonSignUpPageViewModel) ...[
+              LegalPersonSignUpFirstPage(viewModel: viewModel),
+              LegalPersonSignUpSecondPage(viewModel: viewModel),
+              LegalPersonSignUpThirdPage(viewModel: viewModel),
+            ],
+          ],
         ),
       ),
     );
