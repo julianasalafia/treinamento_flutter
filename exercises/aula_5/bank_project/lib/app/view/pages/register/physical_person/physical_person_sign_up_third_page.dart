@@ -15,7 +15,12 @@ class PhysicalPersonSignUpThirdPage extends StatefulWidget {
 }
 
 class _PhysicalPersonSignUpThirdPageState extends State<PhysicalPersonSignUpThirdPage> {
-  List<String> list = <String>['CONTA CORRENTE', 'CONTA SALÁRIO', 'CONTA POUPANÇA', 'CONTA INVESTIMENTO'];
+  List<String> list = <String>[
+    'CONTA CORRENTE',
+    'CONTA SALÁRIO',
+    'CONTA POUPANÇA',
+    'CONTA INVESTIMENTO',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +48,9 @@ class _PhysicalPersonSignUpThirdPageState extends State<PhysicalPersonSignUpThir
             });
           },
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FilledButton(
-              onPressed: () {},
-              child: const Text('CADASTRAR'),
-            ),
-          ],
+        FilledButton(
+          onPressed: () {},
+          child: const Text('CADASTRAR'),
         ),
       ],
     );

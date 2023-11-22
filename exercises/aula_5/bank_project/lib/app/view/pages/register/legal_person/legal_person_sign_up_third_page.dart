@@ -15,7 +15,12 @@ class LegalPersonSignUpThirdPage extends StatefulWidget {
 }
 
 class _LegalPersonSignUpThirdPageState extends State<LegalPersonSignUpThirdPage> {
-  List<String> list = <String>['CONTA CORRENTE', 'CONTA SALÁRIO', 'CONTA POUPANÇA', 'CONTA INVESTIMENTO'];
+  List<String> list = <String>[
+    'CONTA CORRENTE',
+    'CONTA SALÁRIO',
+    'CONTA POUPANÇA',
+    'CONTA INVESTIMENTO',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -26,35 +31,26 @@ class _LegalPersonSignUpThirdPageState extends State<LegalPersonSignUpThirdPage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 25),
-        const Text(
-          'Qual conta você gostaria de cadastrar?',
-        ),
+        const Text('Qual conta você gostaria de cadastrar?'),
         const SizedBox(height: 15),
-        Expanded(
-          child: DropdownButton(
-            isExpanded: true,
-            iconDisabledColor: Colors.orange,
-            items: list.map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-            onChanged: (String? value) {
-              setState(() {
-                dropdownValue = value!;
-              });
-            },
-          ),
+        DropdownButton(
+          isExpanded: true,
+          iconDisabledColor: Colors.orange,
+          items: list.map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          onChanged: (String? value) {
+            setState(() {
+              dropdownValue = value!;
+            });
+          },
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FilledButton(
-              onPressed: () {},
-              child: const Text('CADASTRAR'),
-            ),
-          ],
+        FilledButton(
+          onPressed: () {},
+          child: const Text('CADASTRAR'),
         ),
       ],
     );
