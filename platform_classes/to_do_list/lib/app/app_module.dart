@@ -10,6 +10,7 @@ import 'package:to_do_list/app/modules/value_notifier/pages/value_notifier_modul
 
 import 'core/services/local_storage/i_local_storage_service.dart';
 import 'core/services/overlay/i_overlay_service.dart';
+import 'modules/triple/pages/triple_module.dart';
 
 class AppModule extends Module {
   @override
@@ -26,5 +27,6 @@ class AppModule extends Module {
     r.module('/cn', module: ChangeNotifierModule());
     r.module('/bloc', module: BlocModule());
     r.module('/cubit', module: CubitModule());
+    r.module('/triple', module: TripleModule());
   }
 }

@@ -36,6 +36,10 @@ class HomePage extends StatelessWidget {
               route: '/cubit/',
               title: 'Cubit',
             ),
+            HomeElevatedButtonWidget(
+              route: '/triple/',
+              title: 'Triple',
+            ),
           ],
         ),
       ),

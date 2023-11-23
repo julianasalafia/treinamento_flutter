@@ -15,7 +15,7 @@ dependencies:
   flutter_native_splash: 2.3.0
   flutterando_analysis: ^0.0.2
   flutter_launcher_icons: ^0.13.1
-  intl: 0.18.0
+  intl: ^0.18.0
   flutter_modular: ^6.3.2
   shimmer: ^3.0.0
   asuka: ^2.2.0
@@ -23,6 +23,7 @@ dependencies:
   path_provider: ^2.1.1
   flutter_bloc: ^8.1.3
   bloc: ^8.1.2
+  flutter_triple: ^3.0.0
 
 dev_dependencies:
   flutter_test:

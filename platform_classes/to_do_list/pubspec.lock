@@ -5,10 +5,10 @@ packages:
     dependency: transitive
     description:
       name: archive
-      sha256: "7e0d52067d05f2e0324268097ba723b71cb41ac8a6a2b24d1edf9c536b987b03"
+      sha256: "7b875fd4a20b165a3084bd2d210439b22ebc653f21cea4842729c0c30c82596b"
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.6"
+    version: "3.4.9"
   args:
     dependency: transitive
     description:
@@ -17,6 +17,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.2"
+  asp:
+    dependency: transitive
+    description:
+      name: asp
+      sha256: "97acd3bceceea0b12dd8001a60b577eee5d4ae695c518d2ed8e93b59fbb3e798"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.0"
   asuka:
     dependency: "direct main"
     description:
@@ -200,6 +208,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_triple:
+    dependency: "direct main"
+    description:
+      name: flutter_triple
+      sha256: fb2a7a07e5f6553f4b7d0ab529bd96ad092645c4e5496f162fa34b851a04bc17
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -385,10 +401,10 @@ packages:
     dependency: transitive
     description:
       name: plugin_platform_interface
-      sha256: da3fdfeccc4d4ff2da8f8c556704c08f912542c5fb3cf2233ed75372384a034d
+      sha256: f4f88d4a900933e7267e2b353594774fc0d07fb072b47eedcd5b54e1ea3269f8
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.6"
+    version: "2.1.7"
   pointycastle:
     dependency: transitive
     description:
@@ -474,6 +490,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.1"
+  triple:
+    dependency: transitive
+    description:
+      name: triple
+      sha256: "0d049c7d44fbe093432c72ec059a958b1b22e0748b3b90e806383ef2376f34cb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   typed_data:
     dependency: transitive
     description:
