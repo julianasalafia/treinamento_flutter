@@ -40,6 +40,10 @@ class HomePage extends StatelessWidget {
               route: '/triple/',
               title: 'Triple',
             ),
+            HomeElevatedButtonWidget(
+              route: '/mobx/',
+              title: 'MobX',
+            ),
           ],
         ),
       ),

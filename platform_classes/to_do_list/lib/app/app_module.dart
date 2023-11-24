@@ -6,6 +6,7 @@ import 'package:to_do_list/app/modules/bloc/pages/bloc_module.dart';
 import 'package:to_do_list/app/modules/change_notifier/pages/change_notifier_module.dart';
 import 'package:to_do_list/app/modules/cubit/pages/cubit_module.dart';
 import 'package:to_do_list/app/modules/home/home_module.dart';
+import 'package:to_do_list/app/modules/mobx/pages/mobx_module.dart';
 import 'package:to_do_list/app/modules/value_notifier/pages/value_notifier_module.dart';
 
 import 'core/services/local_storage/i_local_storage_service.dart';
@@ -28,5 +29,6 @@ class AppModule extends Module {
     r.module('/bloc', module: BlocModule());
     r.module('/cubit', module: CubitModule());
     r.module('/triple', module: TripleModule());
+    r.module('/mobx', module: MobxModule());
   }
 }
