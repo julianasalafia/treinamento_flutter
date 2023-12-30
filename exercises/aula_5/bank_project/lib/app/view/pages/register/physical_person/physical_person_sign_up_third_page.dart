@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../sign_up_page.dart';
+import '../../view_models/physical_person_view_model.dart';
 
 class PhysicalPersonSignUpThirdPage extends StatefulWidget {
-  final PhysicalPersonSignUpPageViewModel viewModel;
+  final PhysicalPersonViewModel viewModel;
 
   const PhysicalPersonSignUpThirdPage({
     super.key,

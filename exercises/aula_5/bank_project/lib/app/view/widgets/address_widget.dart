@@ -1,6 +1,7 @@
-import 'package:bank_project/app/view/controllers/register_page_controller.dart';
 import 'package:bank_project/app/view/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
+
+import '../controllers/address_controller.dart';
 
 class AddressWidget extends StatelessWidget {
   final AddressController address;
@@ -25,8 +26,7 @@ class AddressWidget extends StatelessWidget {
                 const SizedBox(height: 15),
                 TextFieldWidget(hintText: 'número', controller: address.number),
                 const SizedBox(height: 15),
-                TextFieldWidget(
-                    hintText: 'complemento', controller: address.complement),
+                TextFieldWidget(hintText: 'complemento', controller: address.complement),
                 const SizedBox(height: 15),
                 TextFieldWidget(hintText: 'bairro', controller: address.neighbourhood),
                 const SizedBox(height: 15),

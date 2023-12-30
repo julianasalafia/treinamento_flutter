@@ -1,11 +1,11 @@
 import 'package:bank_project/app/view/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../sign_up_page.dart';
 import '../../../themes/dark/dark_colors.dart';
+import '../../view_models/physical_person_view_model.dart';
 
 class PhysicalPersonSignUpFirstPage extends StatelessWidget {
-  final PhysicalPersonSignUpPageViewModel viewModel;
+  final PhysicalPersonViewModel viewModel;
 
   const PhysicalPersonSignUpFirstPage({
     super.key,

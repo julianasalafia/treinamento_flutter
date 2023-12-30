@@ -1,11 +1,11 @@
 import 'package:bank_project/app/view/widgets/address_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../sign_up_page.dart';
 import '../../../themes/dark/dark_colors.dart';
+import '../../view_models/legal_person_view_model.dart';
 
 class LegalPersonSignUpSecondPage extends StatelessWidget {
-  final LegalPersonSignUpPageViewModel viewModel;
+  final LegalPersonViewModel viewModel;
 
   const LegalPersonSignUpSecondPage({
     super.key,
