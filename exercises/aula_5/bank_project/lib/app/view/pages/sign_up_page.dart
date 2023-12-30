@@ -1,3 +1,4 @@
+import 'package:bank_project/app/view/controllers/register_page_controller.dart';
 import 'package:bank_project/app/view/pages/register/legal_person/legal_person_sign_up_second_page.dart';
 import 'package:bank_project/app/view/pages/register/legal_person/legal_person_sign_up_third_page.dart';
 import 'package:bank_project/app/view/pages/register/physical_person/physical_person_sign_up_first_page.dart';
@@ -10,7 +11,7 @@ import 'register/legal_person/legal_person_sign_up_first_page.dart';
 
 abstract class SignUpPageViewModel {
   final TextEditingController name;
-  final TextEditingController address;
+  final AddressController address;
   final TextEditingController telephone;
   final List<AccountModel> accounts;
 
@@ -35,12 +36,12 @@ class PhysicalPersonSignUpPageViewModel extends SignUpPageViewModel {
     required super.accounts,
   });
 
-  factory PhysicalPersonSignUpPageViewModel.create() {
+  factory PhysicalPersonSignUpPageViewModel.create({required AddressController address}) {
     return PhysicalPersonSignUpPageViewModel(
       cpf: TextEditingController(),
       birthAt: TextEditingController(),
       name: TextEditingController(),
-      address: TextEditingController(),
+      address: address,
       telephone: TextEditingController(),
       accounts: [],
     );
@@ -58,11 +59,11 @@ class LegalPersonSignUpPageViewModel extends SignUpPageViewModel {
     required super.accounts,
   });
 
-  factory LegalPersonSignUpPageViewModel.create() {
+  factory LegalPersonSignUpPageViewModel.create({required AddressController address}) {
     return LegalPersonSignUpPageViewModel(
       cnpj: TextEditingController(),
       name: TextEditingController(),
-      address: TextEditingController(),
+      address: address,
       telephone: TextEditingController(),
       accounts: [],
     );
@@ -82,6 +83,7 @@ class SignUpPage extends StatelessWidget {
     final viewModel = signUpPageViewModel;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('CADASTRO'),
       ),
