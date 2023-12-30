@@ -1,4 +1,4 @@
-import 'package:bank_project/app/view/widgets/text_field_widget.dart';
+import 'package:bank_project/app/view/widgets/address_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../sign_up_page.dart';
@@ -18,15 +18,7 @@ class LegalPersonSignUpSecondPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 25),
-        TextFieldWidget(hintText: 'rua', controller: viewModel.address),
-        const SizedBox(height: 15),
-        TextFieldWidget(hintText: 'número', controller: viewModel.address),
-        const SizedBox(height: 15),
-        TextFieldWidget(hintText: 'bairro', controller: viewModel.address),
-        const SizedBox(height: 15),
-        TextFieldWidget(hintText: 'cep', controller: viewModel.address),
-        const SizedBox(height: 15),
+        AddressWidget(address: viewModel.address),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

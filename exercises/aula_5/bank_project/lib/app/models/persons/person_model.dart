@@ -1,8 +1,9 @@
 import '../accounts/account_model.dart';
+import '../address_model.dart';
 
 abstract class PersonModel {
   final String name;
-  final String address;
+  final List<AddressModel> address;
   final String telephone;
   final List<AccountModel> accounts;
 
