@@ -1,3 +1,6 @@
+import 'package:bank_project/app/services/address_service.dart';
+import 'package:bank_project/app/services/http_service_dio.dart';
+import 'package:bank_project/app/services/i_http_service.dart';
 import 'package:bank_project/app/view/controllers/welcome_page_controller.dart';
 import 'package:bank_project/app/view/pages/login/login_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -13,6 +16,8 @@ class AppModule extends Module {
     super.binds(i);
     i.add(WelcomePageController.new);
     i.add(RegisterPageController.new);
+    i.add<IHttpService>(HttpServiceDio.new);
+    i.add(AddressService.new);
   }
 
   @override
